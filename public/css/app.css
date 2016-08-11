@@ -1,0 +1,35 @@
+.text-white {
+  color: white !important; }
+
+@media (max-width: 767px) {
+  .main-container .nav-wrap .site-nav .nav-list li .inner-drop {
+    display: list-item; }
+  .nav-trigger {
+    display: inline; } }
+
+@media (min-width: 768px) {
+  .nav-trigger {
+    display: none; } }
+
+.panel-title {
+  padding: 10px; }
+  .panel-title p {
+    font-size: 18px;
+    font-weight: bold;
+    margin: 0px;
+    text-transform: uppercase; }
+
+.text-disable a,
+.text-disable {
+  color: gray !important;
+  text-decoration: line-through; }
+
+.btn > i:before {
+  margin-right: 0px; }
+
+div.bootbox.modal.fade.in {
+  z-index: 1070; }
+
+div.bootbox.modal.fade.in + div {
+  z-index: 1060; }
+
