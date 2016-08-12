@@ -86,6 +86,12 @@ Route::group(['prefix' => 'api'], function(){
         'uses' => 'Api\V1Controller@login'
         ]);
 
+    //Registro
+    Route::post('register', [
+        'as' => 'API_register',
+        'uses' => 'Api\V1Controller@register'
+        ]);
+
 });
 
 /**

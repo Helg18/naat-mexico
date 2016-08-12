@@ -22,7 +22,7 @@ class V1Controller extends Controller
     use ResetsPasswords;
     //
     public function __construct(){
-        $this->middleware('jwt.auth',['except'=>['postSignIn','postSignUp', 'postRecoverPassword', 'login']]);
+        $this->middleware('jwt.auth',['except'=>['postSignIn','postSignUp', 'postRecoverPassword', 'login', 'register']]);
         //$this->middleware('jwt.refresh',['except'=>['postSignIn','postSignUp']]);
     }
 
@@ -30,6 +30,8 @@ class V1Controller extends Controller
      * Metodos para el login
      * Codigo de Henry Leon
      */
+    
+    //Login
     public function login(Request $request){
 
         // Capturando las credenciales
@@ -48,6 +50,29 @@ class V1Controller extends Controller
         // Si todo sale bien retornamos el token :)
         return response()->json(compact('token'), 200);
 
+    }
+
+    //Register
+    public function register(Request $request){
+
+      //llenando los datos del nuevo usuario
+      $u = new User();
+      $u->nombre  = $request->nombre;
+      $u->email  = $request->email;
+      $u->apellido  = $request->apellido;
+      $u->fecha_nac  = $request->fecha_nac;
+      $u->fecha_ingreso_uvm  = $request->fecha_ingreso_uvm;
+      $u->celular  = $request->celular;
+      $u->puesto  = $request->puesto;
+      $u->campus  = $request->campus;
+      $u->num_empleado  = $request->num_empleado;
+      $u->metas_ni  = $request->metas_ni;
+      $u->metas_pno  = $request->metas_pno;
+      $u->password = bcrypt($request->password);
+      $u->name = $request->nombre.' '.$request->apellido;
+      $u->save();
+
+      return response()->json(['error'=>false,'message'=>'Usuario creado exitosamente', 'datos' => $u]);
     }
     /**
      * Fin de metodos para el Login

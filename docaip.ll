@@ -4,6 +4,10 @@
 
 //Login
 
-POST  =>     api/login      => recibe: email y contraseña       => Devuelve: Token de session
+POST  =>     api/login      => recibe:  email
+																				contraseña       
+
+														=> Devuelve: Token de session
 
 
+POST =>      api/register  => recibe:  => Devuelve: 
