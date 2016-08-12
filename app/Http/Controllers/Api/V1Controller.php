@@ -72,7 +72,7 @@ class V1Controller extends Controller
       $u->name = $request->nombre.' '.$request->apellido;
       $u->save();
 
-      return response()->json(['error'=>false,'message'=>'Usuario creado exitosamente', 'datos' => $u]);
+      return response()->json(['error'=>false,'message'=>'Usuario creado exitosamente']);
     }
     /**
      * Fin de metodos para el Login

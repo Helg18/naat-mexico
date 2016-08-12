@@ -10,4 +10,17 @@ POST  =>     api/login      => recibe:  email
 														=> Devuelve: Token de session
 
 
-POST =>      api/register  => recibe:  => Devuelve: 
+POST =>      api/register  => recibe:   nombre
+																				apellido
+																				fecha_nac
+																				fecha_ingreso_uvm
+																				celular
+																				puesto
+																				campus
+																				num_empleado
+																				metas_ni
+																				metas_pno
+																				email
+																				password
+													 => Devuelve: estatus del error
+													 							mensaje
