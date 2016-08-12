@@ -74,3 +74,20 @@ Route::group(['prefix' => 'api', 'middleware' => ['jsonify']], function () {
     ]);
 });
 
+
+/**
+ * Rutas para login a traves de API
+ */
+Route::group(['prefix' => 'api'], function(){
+
+    //Login
+    Route::post('login', [
+        'as' => 'API_login',
+        'uses' => 'Api\V1Controller@login'
+        ]);
+
+});
+
+/**
+ * Fin de Rutas para login a traves de API
+ */

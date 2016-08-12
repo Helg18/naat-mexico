@@ -27,8 +27,8 @@ class UsersTableSeeder extends Seeder
         $role_customer        = Role::where('slug','customer')->first();
 
         $admin = new User();
-        $admin->name = 'Fernando Castillo';
-        $admin->email = 'fernando@kreativeco.com';
+        $admin->name = 'Luis E. Flores';
+        $admin->email = 'luis@kreativeco.com';
         $admin->password = bcrypt('1234567890');
         $admin->is_active= true;
         $admin->save();
@@ -38,8 +38,8 @@ class UsersTableSeeder extends Seeder
 
 
         $executive = new User();
-        $executive->name = 'Israel Medina';
-        $executive->email = 'ejecutivo@kreativeco.com';
+        $executive->name = 'Henry Leon';
+        $executive->email = 'helg18@gmail.com';
         $executive->password = bcrypt('1234567890');
         $executive->is_active= true;
         $executive->save();

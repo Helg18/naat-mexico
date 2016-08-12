@@ -22,9 +22,39 @@ class V1Controller extends Controller
     use ResetsPasswords;
     //
     public function __construct(){
-        $this->middleware('jwt.auth',['except'=>['postSignIn','postSignUp', 'postRecoverPassword']]);
+        $this->middleware('jwt.auth',['except'=>['postSignIn','postSignUp', 'postRecoverPassword', 'login']]);
         //$this->middleware('jwt.refresh',['except'=>['postSignIn','postSignUp']]);
     }
+
+    /**
+     * Metodos para el login
+     * Codigo de Henry Leon
+     */
+    public function login(Request $request){
+
+        // Capturando las credenciales
+        $credenciales = $request->only('email', 'password');
+
+        try {
+            // intento verificar las credenciales y crear un token para el usuario
+            if (! $token = JWTAuth::attempt($credenciales)) {
+                return response()->json(['error' => 'credenciales_invalidas'], 401);
+            }
+        } catch (JWTException $e) {
+            // Algo salio mal al intentar crear el token :(
+            return response()->json(['error' => 'no_se_ha_podido_crear_el_token'], 500);
+        }
+
+        // Si todo sale bien retornamos el token :)
+        return response()->json(compact('token'), 200);
+
+    }
+    /**
+     * Fin de metodos para el Login
+     */
+
+
+
 
     public function user(){
         return JWTAuth::parseToken()->authenticate();

@@ -7,3 +7,4 @@ Homestead.json
 .idea
 /public/images/answers/*
 /public/images/from_users/*
+.phpintel/*
