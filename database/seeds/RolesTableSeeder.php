@@ -19,18 +19,8 @@ class RolesTableSeeder extends Seeder
         ]);
 
         DB::table('roles')->insert([
-            'name' => 'Ejecutivo',
-            'slug' => 'executive',
-        ]);
-
-        DB::table('roles')->insert([
-            'name' => 'Cliente',
-            'slug' => 'customer',
-        ]);
-
-        DB::table('roles')->insert([
-            'name' => 'Encuestado',
-            'slug' => 'survey_respondent',
+            'name' => 'mobile',
+            'slug' => 'mobile',
         ]);
     }
 }

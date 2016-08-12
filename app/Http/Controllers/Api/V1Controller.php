@@ -55,24 +55,45 @@ class V1Controller extends Controller
     //Register
     public function register(Request $request){
 
-      //llenando los datos del nuevo usuario
-      $u = new User();
-      $u->nombre  = $request->nombre;
-      $u->email  = $request->email;
-      $u->apellido  = $request->apellido;
-      $u->fecha_nac  = $request->fecha_nac;
-      $u->fecha_ingreso_uvm  = $request->fecha_ingreso_uvm;
-      $u->celular  = $request->celular;
-      $u->puesto  = $request->puesto;
-      $u->campus  = $request->campus;
-      $u->num_empleado  = $request->num_empleado;
-      $u->metas_ni  = $request->metas_ni;
-      $u->metas_pno  = $request->metas_pno;
-      $u->password = bcrypt($request->password);
-      $u->name = $request->nombre.' '.$request->apellido;
-      $u->save();
+      //validadno que no exista el email
+      if (User::where('email','=',$request->email)->first()) {
+        return response()->json(['error'=>true,'message'=>'El Email ingresado ya existe.'], 200);
+      } else {
+        //Si el usuario no exite, entonces comenzamos 
+        //llenando los datos del nuevo usuario
+        $u = new User();
+        $u->nombre  = $request->nombre;
+        $u->email  = $request->email;
+        $u->apellido  = $request->apellido;
+        $u->fecha_nac  = $request->fecha_nac;
+        $u->fecha_ingreso_uvm  = $request->fecha_ingreso_uvm;
+        $u->celular  = $request->celular;
+        $u->puesto  = $request->puesto;
+        $u->campus  = $request->campus;
+        $u->num_empleado  = $request->num_empleado;
+        $u->metas_ni  = $request->metas_ni;
+        $u->metas_pno  = $request->metas_pno;
+        $u->password = bcrypt($request->password);
+        $u->name = $request->nombre.' '.$request->apellido;
+        $u->id_rol = 2; // 2 es de user mobile
+        $u->is_active= true;
 
-      return response()->json(['error'=>false,'message'=>'Usuario creado exitosamente']);
+        //Guardo el nuevo user
+        $u->save();
+      }
+
+      //obteniendo el login del user recien registrado
+      $credenciales = array('email' => $u->email, 'password' => $request->password);
+
+      try {
+            if (! $token = JWTAuth::attempt($credenciales)) {
+                return response()->json(['error' => 'credenciales_invalidas'], 401);
+            }
+        } catch (JWTException $e) {
+            return response()->json(['error' => 'no_se_ha_podido_crear_el_token'], 500);
+        }
+
+      return response()->json(['error'=>false,'message'=>'Usuario creado exitosamente', 'token'=>$token], 200);
     }
     /**
      * Fin de metodos para el Login

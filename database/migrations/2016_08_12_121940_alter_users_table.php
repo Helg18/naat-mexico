@@ -23,6 +23,7 @@ public function up()
 		$table->string('num_empleado')->after('campus');
 		$table->string('metas_ni')->after('num_empleado');
 		$table->string('metas_pno')->after('metas_ni');
+		$table->string('id_rol')->after('metas_pno');
 	});
 }
 

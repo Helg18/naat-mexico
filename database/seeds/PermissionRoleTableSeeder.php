@@ -17,8 +17,7 @@ class PermissionRoleTableSeeder extends Seeder
 
         //Roles
         $admin      = Role::where('slug','admin')->first();
-        $executive  = Role::where('slug','executive')->first();
-        $customer    = Role::where('slug','customer')->first();
+        $executive  = Role::where('slug','mobile')->first();
 
 
         //Permissions
@@ -36,9 +35,6 @@ class PermissionRoleTableSeeder extends Seeder
 
         $executive->syncPermissions([ $companies->id]);
         $executive->save();
-
-        $customer->syncPermissions([$company->id, $report->id]);
-        $customer->save();
 
     }
 }

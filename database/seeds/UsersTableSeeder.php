@@ -23,8 +23,7 @@ class UsersTableSeeder extends Seeder
         ]);*/
 
         $role_admin      = Role::where('slug','admin')->first();
-        $role_executive  = Role::where('slug','executive')->first();
-        $role_customer        = Role::where('slug','customer')->first();
+        $role_executive  = Role::where('slug','mobile')->first();
 
         $admin = new User();
         $admin->name = 'Luis E. Flores';
