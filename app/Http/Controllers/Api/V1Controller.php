@@ -47,8 +47,20 @@ class V1Controller extends Controller
             return response()->json(['error' => 'no_se_ha_podido_crear_el_token'], 500);
         }
 
-        // Si todo sale bien retornamos el token :)
-        return response()->json(compact('token'), 200);
+
+        //verificar que el usuario que inicia sesion sea de mobile
+        $u = User::where('email','=', $request->email)->first();
+
+        if ($u->id_rol == 2) {
+          // Si todo sale bien retornamos el token :)
+          return response()->json(compact('token'), 200);
+
+        } else {
+          //si el id_rol no es de mobile mandar error
+          return response()->json(['error'=>true,'message'=>'Este usuario no es de mobile.'], 200);
+
+        }
+
 
     }
 
