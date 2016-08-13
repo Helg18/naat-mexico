@@ -121,6 +121,22 @@
 						</a>
 					</li>
 
+					<li class="menu-dashboard">
+						<a href="{{url('admin/usuarios')}}">
+							<i class="ion ion-person"></i>
+							<span class="text">Usuarios</span>
+						</a>
+					</li>
+	
+					@if(Shinobi::can('usuarios.access'))
+						<li class="menu-dashboard">
+							<a href="{{url('admin/usuario')}}">
+								<i class="ion ion-person"></i>
+								<span class="text">Usuarios</span>
+							</a>
+						</li>
+					@endif
+					
 					@if(Shinobi::can('company.access'))
 
 						<li class="menu-quiz">

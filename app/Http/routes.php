@@ -94,6 +94,13 @@ Route::group(['prefix' => 'api'], function(){
 
 });
 
+
 /**
- * Fin de Rutas para login a traves de API
+ * Fin de rutas para login a traves de API
  */
+
+
+
+Route::group(['prefix' => 'admin', 'middleware'=> 'auth'], function(){
+    Route::resource('usuarios', 'UsuariosController');
+});
