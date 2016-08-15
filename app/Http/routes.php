@@ -103,4 +103,7 @@ Route::group(['prefix' => 'api'], function(){
 
 Route::group(['prefix' => 'admin', 'middleware'=> 'auth'], function(){
     Route::resource('usuarios', 'UsuariosController');
+    
+    //rutas de Reglasdeljuego
+    Route::resource('reglas', 'ReglasdeljuegoController');
 });

@@ -89,10 +89,6 @@ class AuthController extends Controller
 
             return $this->sendFailedLoginResponse($request);
 
-            // return redirect()->back()
-            // ->withInput($request->only($this->loginUsername(), 'remember'))
-            // ->withErrors('message','Este usuario no es Administrador.');
-
         }
         $this->validateLogin($request);
 
