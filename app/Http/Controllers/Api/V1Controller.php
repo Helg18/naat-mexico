@@ -10,6 +10,7 @@ use App\Http\Requests\Api\SignUpRequest;
 use App\Http\Requests\Api\QuizRequest;
 
 use App\Models\User;
+use App\Models\Role_User;
 use App\Models\Quiz;
 use App\Models\Question;
 use App\Models\Regla;
@@ -52,13 +53,20 @@ class V1Controller extends Controller
         //verificar que el usuario que inicia sesion sea de mobile
         $u = User::where('email','=', $request->email)->first();
 
-        if ($u->id_rol == 2) {
+        //Consulto el permiso segun el id del usuario
+        $ru = Role_User::where('role_id','=', $u->id)->first();
+
+        //comparo el permiso obtneido
+        //recuerda que 
+        //   1 es admin
+        //   2 es mobile
+        if ($ru->role_id == 2) {
           // Si todo sale bien retornamos el token :)
           return response()->json(compact('token'), 200);
 
         } else {
           //si el id_rol no es de mobile mandar error
-          return response()->json(['error'=>true,'message'=>'Este usuario no es de mobile.'], 200);
+          return response()->json(['error'=>true,'message'=>'Este usuario no es de mobile.'], 401);
 
         }
 

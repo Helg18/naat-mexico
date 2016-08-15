@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Models\User;
+use App\Models\Role_User;
 use Validator;
 use Auth;
 use App\Http\Controllers\Controller;
@@ -83,13 +84,22 @@ class AuthController extends Controller
     public function login(Request $request)
     {
         $u = User::where('email', '=', $request->email)->first();
-        if(is_null($u) || $u->id_rol == 2 )
-        {
-            $this->incrementLoginAttempts($request);
+        if (!is_null($u) && !empty($u)) {
+            $ru = Role_User::where('user_id','=',$u->id)->first();
 
-            return $this->sendFailedLoginResponse($request);
+            //si es role->id = 2 canselamos el inicio de sesion
+            //recuerda 
+            //   1 = Admininstadores
+            //   2 = Mobile
+            if ($ru->role_id == 2) {
+                $this->incrementLoginAttempts($request);
 
+                return $this->sendFailedLoginResponse($request);
+            }
         }
+
+        //Si todo sale bien, seguimos con el inicio de session.
+
         $this->validateLogin($request);
 
         // If the class is using the ThrottlesLogins trait, we can automatically throttle

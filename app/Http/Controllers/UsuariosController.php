@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Models\User;
+use App\Models\Role_User;
 
 class UsuariosController extends Controller
 {
@@ -48,6 +49,7 @@ class UsuariosController extends Controller
      */
     public function store(Request $request)
     {
+        //Guardando el usuario
         $u = new User;
         $u->nombre = $request->nombre;
         $u->apellido= $request->apellido;
@@ -61,9 +63,15 @@ class UsuariosController extends Controller
         $u->campus = $request->campus;
         $u->metas_ni = $request->metas_ni;
         $u->metas_pno = $request->metas_pno;
-        $u->id_rol = 1;
         $u->is_active = 1;
         $u->save();
+
+        //Creando el permiso
+        $ru = new Role_User;
+        $ru->role_id = 1;
+        $ru->user_id = $u->id;
+        $ru->save();
+
         return redirect()->route('admin.usuarios.index')->with('success','Usuario agregado exitosamente');
     }
 
