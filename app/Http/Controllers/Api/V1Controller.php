@@ -99,11 +99,17 @@ class V1Controller extends Controller
         $u->metas_pno  = $request->metas_pno;
         $u->password = bcrypt($request->password);
         $u->name = $request->nombre.' '.$request->apellido;
-        $u->id_rol = 2; // 2 es de user mobile
         $u->is_active= true;
-
+        
         //Guardo el nuevo user
         $u->save();
+
+
+        //Estableciendo los permisos 
+        $ru = new Role_User;
+        $ru->user_id = $u->id;
+        $ru->role_id = 2;
+        $ru->save();
       }
 
       //obteniendo el login del user recien registrado
