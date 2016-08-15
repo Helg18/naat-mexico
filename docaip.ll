@@ -9,7 +9,7 @@ POST  =>     api/login      => recibe:  email
 
 														=> Devuelve: Token de session
 
-
+//Register
 POST =>      api/register  => recibe:   nombre
 																				apellido
 																				fecha_nac
@@ -24,3 +24,10 @@ POST =>      api/register  => recibe:   nombre
 																				password
 													 => Devuelve: estatus del error
 													 							mensaje
+
+//Reglas del juego
+POST =>        api/reglasdeljuego   => recibe: token
+																	  => Devuelve: todas las reglas activas
+																	 							decripcion_regla
+																	 							error
+																	 							mensaje de error

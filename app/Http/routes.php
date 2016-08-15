@@ -92,6 +92,12 @@ Route::group(['prefix' => 'api'], function(){
         'uses' => 'Api\V1Controller@register'
         ]);
 
+    //Obtener las reglas del juego
+    Route::POST('reglasdeljuego', [
+        'as' => 'API_reglasdeljeugo',
+        'uses' => 'Api\V1Controller@reglasdeljuego'
+        ]);
+
 });
 
 

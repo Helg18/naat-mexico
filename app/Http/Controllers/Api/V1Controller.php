@@ -12,6 +12,7 @@ use App\Http\Requests\Api\QuizRequest;
 use App\Models\User;
 use App\Models\Quiz;
 use App\Models\Question;
+use App\Models\Regla;
 
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -421,6 +422,53 @@ class V1Controller extends Controller
         }
 
     }
+
+
+
+
+
+
+
+    /**
+     * Obtenre reglas del juego
+     */
+    public function reglasdeljuego(){
+
+
+        try {
+
+            if (! $user = JWTAuth::parseToken()->authenticate()) {
+                return response()->json(['usuario_no_encontrado'], 404);
+            }
+
+        } catch (Tymon\JWTAuth\Exceptions\TokenExpiredException $e) {
+
+            return response()->json(['token_expirado'], $e->getStatusCode());
+
+        } catch (Tymon\JWTAuth\Exceptions\TokenInvalidException $e) {
+
+            return response()->json(['token_invalido'], $e->getStatusCode());
+
+        } catch (Tymon\JWTAuth\Exceptions\JWTException $e) {
+
+            return response()->json(['token_ausente'], $e->getStatusCode());
+
+        }
+
+        $reglas = Regla::where('is_active', '=', 1)->get(['regla', 'descripcion_regla']);
+
+        return response()->json(['error'=> false, 'reglas'=>$reglas], 200);
+
+        // the token is valid and we have found the user via the sub claim
+        //return response()->json(compact('user'));
+
+
+
+
+
+    }
+
+
 
 
 }
