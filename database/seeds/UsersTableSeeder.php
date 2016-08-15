@@ -42,7 +42,7 @@ class UsersTableSeeder extends Seeder
         $executive->email = 'helg18@gmail.com';
         $executive->password = bcrypt('1234567890');
         $executive->is_active= true;
-        $executive->id_rol= 1;
+        $executive->id_rol= 2;
         $executive->save();
 
         $executive->assignRole($role_executive->id);
