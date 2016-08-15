@@ -60,7 +60,7 @@ class V1Controller extends Controller
         //recuerda que 
         //   1 es admin
         //   2 es mobile
-        if ($ru->role_id == 2) {
+        if ($ru->pluck('role_id')->first() == 2) {
           // Si todo sale bien retornamos el token :)
           return response()->json(compact('token'), 200);
 
