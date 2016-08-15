@@ -24,8 +24,6 @@ class AlterTableUser extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
             $table->string('id_rol')->after('metas_pno');
-        });
     }
 }
