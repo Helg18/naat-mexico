@@ -24,7 +24,7 @@ class V1Controller extends Controller
     use ResetsPasswords;
     //
     public function __construct(){
-        $this->middleware('jwt.auth',['except'=>['postSignIn','postSignUp', 'postRecoverPassword', 'login', 'register','reglasdeljuego']]);
+        $this->middleware('jwt.auth',['except'=>['postSignIn','postSignUp', 'postRecoverPassword', 'login', 'register']]);
         // $this->middleware('jwt.refresh',['except'=>['reglasdeljuego']]);
     }
 
@@ -441,15 +441,28 @@ class V1Controller extends Controller
     }
 
 
-
-
-
-
-
     /**
      * Obtenre reglas del juego
      */
     public function reglasdeljuego(Request $request){
+
+        // dd($request->token);
+
+        try{
+            if(! $user = JWTAuth::parseToken()->authenticate()){
+                return \Response::json(['user_not_found'], 404);
+            }
+        }
+        catch(Tymon\JWTAuth\Exceptions\TokenExpiredException $e){
+            return \Response::json(['token_expired'], $e->getStatusCode());
+        }
+        catch(Tymon\JWTAuth\Exceptions\TokenInvalidException $e){
+            return \Response::json(['token_invalid'], $e->getStatusCode());
+        }
+        catch(Tymon\JWTAuth\Exceptions\JWTException $e){
+            return \Response::json(['token_absent'], $e->getStatusCode());
+        }
+        
 
         $reglas = Regla::where('is_active', '=', 1)->get(['regla', 'descripcion_regla']);
 
