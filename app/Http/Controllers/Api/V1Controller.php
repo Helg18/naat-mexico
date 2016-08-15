@@ -37,6 +37,7 @@ class V1Controller extends Controller
     public function login(Request $request){
 
         // Capturando las credenciales
+        
         $credenciales = $request->only('email', 'password');
 
         try {
@@ -51,10 +52,12 @@ class V1Controller extends Controller
 
 
         //verificar que el usuario que inicia sesion sea de mobile
-        $u = User::where('email','=', $request->email)->first();
+        $u = User::where('email','=', $request->email)->get();
+        
+        $id_user = $u->pluck('id')->first();
 
         //Consulto el permiso segun el id del usuario
-        $ru = Role_User::where('role_id','=', $u->id)->first();
+        $ru = Role_User::where('user_id','=', $id_user)->get();
 
         //comparo el permiso obtneido
         //recuerda que 
