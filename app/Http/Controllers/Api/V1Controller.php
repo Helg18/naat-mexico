@@ -446,7 +446,6 @@ class V1Controller extends Controller
      */
     public function reglasdeljuego(Request $request){
 
-        // dd($request->token);
 
         try{
             if(! $user = JWTAuth::parseToken()->authenticate()){
