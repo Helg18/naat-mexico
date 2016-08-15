@@ -24,7 +24,7 @@ class V1Controller extends Controller
     use ResetsPasswords;
     //
     public function __construct(){
-        $this->middleware('jwt.auth',['except'=>['postSignIn','postSignUp', 'postRecoverPassword', 'login', 'register']]);
+        $this->middleware('jwt.auth',['except'=>['postSignIn','postSignUp', 'postRecoverPassword', 'login', 'register', 'reglasdeljuego']]);
         //$this->middleware('jwt.refresh',['except'=>['postSignIn','postSignUp']]);
     }
 
