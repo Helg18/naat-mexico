@@ -15,6 +15,7 @@ use App\Models\Quiz;
 use App\Models\Question;
 use App\Models\Regla;
 use App\Models\Fecha;
+use App\Models\Premios;
 
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -496,6 +497,37 @@ class V1Controller extends Controller
 
         return response()->json(['error'=> false, 'fechas'=>$fechas], 200);
     }
+
+
+
+    /**
+     * Obtener los premios
+     */
+    public function premios(Request $request){
+        try{
+            if(! $user = JWTAuth::parseToken()->authenticate()){
+                return \Response::json(['user_not_found'], 404);
+            }
+        }
+        catch(Tymon\JWTAuth\Exceptions\TokenExpiredException $e){
+            return \Response::json(['token_expired'], $e->getStatusCode());
+        }
+        catch(Tymon\JWTAuth\Exceptions\TokenInvalidException $e){
+            return \Response::json(['token_invalid'], $e->getStatusCode());
+        }
+        catch(Tymon\JWTAuth\Exceptions\JWTException $e){
+            return \Response::json(['token_absent'], $e->getStatusCode());
+        }
+        
+
+        $premios = Premios::where('is_active', '=', 1)->get(['premios', 'descripcion_premios']);
+
+        return response()->json(['error'=> false, 'premios'=>$premios], 200);
+    }
+
+
+
+
 
 
 

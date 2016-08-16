@@ -104,6 +104,12 @@ Route::group(['prefix' => 'api'], function(){
         'uses' => 'Api\V1Controller@fechas'
         ]);
 
+    //Obtener los premios
+    Route::POST('premios', [
+        'as' => 'API_premios',
+        'uses' => 'Api\V1Controller@premios'
+        ]);
+
 });
 
 
@@ -121,4 +127,10 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'auth'], function(){
 
     //rutas para las fechas
     Route::resource('fechas', 'FechasController');
+
+    //rutas para los premios
+    Route::resource('premios', 'PremiosController');
+
+
+
 });

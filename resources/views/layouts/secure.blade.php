@@ -141,6 +141,13 @@
 							<span class="text">Fechas</span>
 						</a>
 					</li>
+
+					<li class="menu-dashboard">
+						<a href="{{url('admin/premios')}}">
+							<i class="ion ion-trophy"></i>
+							<span class="text">Premios</span>
+						</a>
+					</li>
 	
 					@if(Shinobi::can('usuarios.access'))
 						<li class="menu-dashboard">

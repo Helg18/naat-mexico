@@ -31,3 +31,20 @@ POST =>        api/reglasdeljuego   => recibe: token
 																	 							decripcion_regla
 																	 							error
 																	 							mensaje de error
+
+
+//Fechas
+POST =>         api/fechas         => recibe: token
+																	 => devuelve: Todas las fechas activas
+																	              descripcion de las fechas
+																	              error
+																	              mensaje de error 
+
+
+//Premios
+POST   =>        api/premios       => recibe: token
+                                   => devuelve: Todos los premios activos
+                                                Descripcion de los premios
+                                                error
+                                                mensaje de error
+                                                
