@@ -90,7 +90,7 @@ class PremiosController extends Controller
     public function update(CrearPremiosRequest $request, $id)
     {
         $p= Premios::findorfail($id);
-        $p->premios = $request->fecha;
+        $p->premios = $request->premios;
         $p->descripcion_premios= $request->descripcion_premios;
         $p->is_active = $request->is_active;
         $p->save();
