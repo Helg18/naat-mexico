@@ -92,23 +92,25 @@ Route::group(['prefix' => 'api'], function(){
         'uses' => 'Api\V1Controller@register'
         ]);
 
-    //Obtener las reglas del juego
-    Route::POST('reglasdeljuego', [
-        'as' => 'API_reglasdeljuego',
-        'uses' => 'Api\V1Controller@reglasdeljuego'
-        ]);
+    Route::group(['middleware' => 'jwt-auth'], function(){
+        //Obtener las reglas del juego
+        Route::POST('reglasdeljuego', [
+            'as' => 'API_reglasdeljuego',
+            'uses' => 'Api\V1Controller@reglasdeljuego'
+            ]);
 
-    //Obtener las fechas
-    Route::POST('fechas', [
-        'as' => 'API_fechas',
-        'uses' => 'Api\V1Controller@fechas'
-        ]);
+        //Obtener las fechas
+        Route::POST('fechas', [
+            'as' => 'API_fechas',
+            'uses' => 'Api\V1Controller@fechas'
+            ]);
 
-    //Obtener los premios
-    Route::POST('premios', [
-        'as' => 'API_premios',
-        'uses' => 'Api\V1Controller@premios'
-        ]);
+        //Obtener los premios
+        Route::POST('premios', [
+            'as' => 'API_premios',
+            'uses' => 'Api\V1Controller@premios'
+            ]);
+    });
 
 });
 
