@@ -38,6 +38,10 @@
 				<td>{{ $usuario->fecha_ingreso_uvm }}</td>
 			</tr>
 			<tr>
+				<td>{!! Form::label('num_empleado', 'Numero de empleado') !!}</td>
+				<td>{{ $usuario->num_empleado }}</td>
+			</tr>
+			<tr>
 				<td>{!! Form::label('puesto', 'Puesto') !!}</td>
 				<td>{{ $usuario->puesto }}</td>
 			</tr>

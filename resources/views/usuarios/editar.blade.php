@@ -6,9 +6,19 @@
 <!-- tab style -->
 <div class="clearfix tabs-linearrow">
 	<ul class="nav nav-tabs">
+		<li class=""><a href="{{ route('admin.usuarios.index') }}" hreff="#tab-linearrow-one" -data-toggle="tab"> < Volver</a></li>
 		<li class="active"><a href="#" hreff="#tab-linearrow-one" -data-toggle="tab">Editar</a></li>
 	</ul>
 	<div class="tab-content" style="text-align: center;">	
+		@if (count($errors) > 0)
+    <div class="alert alert-danger" style="text-align: left;">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+	@endif
 	<div class="row">
 		{!! Form::open(['route' => ['admin.usuarios.update', $usuario->id], 'method'=>'put']) !!}
 		<table>
@@ -43,7 +53,12 @@
 			</tr>
 			<tr>
 				<td>{!! Form::label('fecha_ingreso', 'Fecha de ingreso') !!}</td>
-				<td>{!! Form::date('fecha_ingreso', $usuario->fecha_ingreso_uvm, ['class' => 'form-control']) !!}</td>
+				<td>{!! Form::date('fecha_ingreso_uvm', $usuario->fecha_ingreso_uvm, ['class' => 'form-control']) !!}</td>
+			</tr>			
+			<tr>
+				<td>{!! Form::label('num_empleado', 'Numero de empleado') !!}</td>
+				<td>{!! Form::text('num_empleado', $usuario->num_empleado, ['class' => 'form-control']) !!}
+				</td>
 			</tr>
 			<tr>
 				<td>{!! Form::label('puesto', 'Puesto') !!}</td>

@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use App\Http\Requests\RegisterRequest;
+use App\Http\Requests\EditarUsuarioRequest;
 use App\Models\User;
 use App\Models\Role_User;
 
@@ -47,7 +49,7 @@ class UsuariosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(RegisterRequest $request)
     {
         //Guardando el usuario
         $u = new User;
@@ -57,7 +59,8 @@ class UsuariosController extends Controller
         $u->email = $request->email;
         $u->password = $request->pass;
         $u->fecha_nac = $request->fecha_nac;
-        $u->fecha_ingreso_uvm = $request->fecha_ingreso;
+        $u->fecha_ingreso_uvm = $request->fecha_ingreso_uvm;
+        $u->num_empleado = $request->num_empleado;
         $u->celular = $request->celular;
         $u->puesto = $request->puesto;
         $u->campus = $request->campus;
@@ -106,7 +109,7 @@ class UsuariosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditarUsuarioRequest $request, $id)
     {
         $u = User::find($id);
         $u->nombre = $request->nombre;
@@ -121,7 +124,6 @@ class UsuariosController extends Controller
         $u->campus = $request->campus;
         $u->metas_ni = $request->metas_ni;
         $u->metas_pno = $request->metas_pno;
-        $u->id_rol = 1;
         $u->is_active = 1;
         $u->save();
         return redirect()->route('admin.usuarios.index')->with('success','Registro actualizado exitosamente');
