@@ -98,6 +98,12 @@ Route::group(['prefix' => 'api'], function(){
         'uses' => 'Api\V1Controller@reglasdeljuego'
         ]);
 
+    //Obtener las fechas
+    Route::POST('fechas', [
+        'as' => 'API_fechas',
+        'uses' => 'Api\V1Controller@fechas'
+        ]);
+
 });
 
 
