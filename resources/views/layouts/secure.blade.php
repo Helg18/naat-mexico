@@ -134,6 +134,13 @@
 							<span class="text">Reglas</span>
 						</a>
 					</li>
+
+					<li class="menu-dashboard">
+						<a href="{{url('admin/fechas')}}">
+							<i class="ion ion-calendar"></i>
+							<span class="text">Fechas</span>
+						</a>
+					</li>
 	
 					@if(Shinobi::can('usuarios.access'))
 						<li class="menu-dashboard">

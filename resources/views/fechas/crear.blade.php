@@ -2,12 +2,12 @@
 
 @section('content')
 
-<h1>Agregar nuevas reglas del juego</h1>
+<h1>Agregar nueva fecha</h1>
 <!-- tab style -->
 <div class="clearfix tabs-linearrow">
 	<ul class="nav nav-tabs">
-		<li class=""><a href="{{ route('admin.reglas.index') }}" hreff="#tab-linearrow-one" -data-toggle="tab"> < Volver</a></li>
-		<li class="active"><a href="{{ route('admin.reglas.create') }}" hreff="#tab-linearrow-one" -data-toggle="tab">Agregar</a></li>
+		<li class=""><a href="{{ route('admin.fechas.index') }}" hreff="#tab-linearrow-one" -data-toggle="tab"> < Volver</a></li>
+		<li class="active"><a href="{{ route('admin.fechas.create') }}" hreff="#tab-linearrow-one" -data-toggle="tab">Agregar</a></li>
 	</ul>
 	<div class="tab-content" style="text-align: center;">
 	@if (count($errors) > 0)
@@ -19,16 +19,16 @@
       </ul>
     </div>
 	@endif
-	{!! Form::open(['route' => 'admin.reglas.store', 'method'=>'post']) !!}
+	{!! Form::open(['route' => 'admin.fechas.store', 'method'=>'post']) !!}
 	<table>
 		<tr>
-			<td>{!! Form::label('regla', 'Regla') !!}</td>
-			<td>{!! Form::text('regla', '', [ 'class' => 'form-control']) !!}</td>
+			<td>{!! Form::label('fecha', 'Fecha') !!}</td>
+			<td>{!! Form::date('fecha', '', [ 'class' => 'form-control']) !!}</td>
 
 		</tr>
 		<tr>
-			<td>{!! Form::label('descripcion_regla', 'Descripcion de la regla') !!}</td>
-			<td>{!! Form::textarea('descripcion_regla', '', ['class' => 'form-control']) !!}</td>
+			<td>{!! Form::label('descripcion_fecha', 'Descripcion de la fecha') !!}</td>
+			<td>{!! Form::textarea('descripcion_fecha', '', ['class' => 'form-control']) !!}</td>
 		</tr>
 		<tr>
 			<td colspan="2">{!! Form::submit('Guardar', ['class' => 'btn']) !!}</td>

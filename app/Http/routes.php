@@ -112,4 +112,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'auth'], function(){
     
     //rutas de Reglasdeljuego
     Route::resource('reglas', 'ReglasdeljuegoController');
+
+    //rutas para las fechas
+    Route::resource('fechas', 'FechasController');
 });

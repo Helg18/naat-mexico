@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class CrearReglasDelJuegoRequest extends Request
+class CreateFechaRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,8 @@ class CrearReglasDelJuegoRequest extends Request
     public function rules()
     {
         return [
-            'regla'             => 'required|min:4',
-            'descripcion_regla' => 'required|min:50'
+            'fecha'             => 'required|date',
+            'descripcion_fecha' => 'required|min:50'
         ];
     }
 }
