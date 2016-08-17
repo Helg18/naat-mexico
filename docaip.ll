@@ -25,6 +25,11 @@ POST =>      api/register  => recibe:   nombre
 													 => Devuelve: estatus del error
 													 							mensaje
 
+//Recuperacion de contraseña
+POST  =>           api/postRecoverPassword          => recibe: email
+																										=> devuelve: Estatus de error
+																										             Mensaje
+
 //Reglas del juego
 POST =>        api/reglasdeljuego   => recibe: token
 																	  => Devuelve: todas las reglas activas
