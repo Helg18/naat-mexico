@@ -6,26 +6,32 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Requests\SubcategoriasRequest;
-use App\Http\Requests\EditarsubcategoriasRequest;
 use App\Models\Subcategorias;
 use App\Models\Categorias;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Routing\Route;
 
 class SubcategoriasController extends Controller
 {
-    public function __construct(Route $route){
-        $this->route = $route;
-    }
 
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Route $route)
     {
-        $categoria_padre = $this->route->getparameter('categoria');
-        $c = Categorias::findorfail($categoria_padre);
+        $this->route = $route;
+        $categoria_padre =$route->getparameter('id');
+        if (is_null($categoria_padre) || empty($categoria_padre)) {
+            return Redirect::back()->with('error','No se recibio el parametro');
+        }
+
+        $c = Categorias::find($categoria_padre);
+        if (is_null($c) || empty($c)) {
+            return redirect()->route('admin.categorias.index')->with('error','No se encontro una categoria con ese ID');
+        }
 
         return view('subcategorias.crear')->with('categoria',$c);
     }
@@ -57,7 +63,7 @@ class SubcategoriasController extends Controller
     public function show($id)
     {
         $subcategoria     = Subcategorias::findorfail($id);
-        $categoria_actual = Categorias::where('id',$subcategoria->categoria_id)->first();
+        $categoria_actual = Categorias::findorfail($subcategoria->id);
         $categorias       = Categorias::lists('categoria', 'id')->all(); 
 
         return view('subcategorias.editar')
@@ -98,7 +104,7 @@ class SubcategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(EditarsubcategoriasRequest $request, $id)
+    public function update(Request $request, $id)
     {
         $sc = Subcategorias::findorfail($id);
         $viejo = $sc->categoria_id;

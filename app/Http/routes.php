@@ -151,7 +151,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'auth'], function(){
     
     //Rutas para las subcategorias
     Route::resource('subcategoria','SubcategoriasController');
-    Route::get('subcategoria/creates/{categoria}', [
+    Route::get('subcategoria/creates/{id}', [
         'as'=>'admin.subcategorias.create',
         'uses'=>'SubcategoriasController@create'
         ]);
