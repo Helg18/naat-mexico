@@ -140,6 +140,16 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'auth'], function(){
     //rutas para los premios
     Route::resource('premios', 'PremiosController');
 
+    //Rutas para las categorias
+    Route::resource('categorias','CategoriasController');
+    
+    //Rutas para las subcategorias
+    Route::resource('subcategoria','SubcategoriasController');
+    Route::get('subcategoria/creates/{categoria}', [
+        'as'=>'admin.subcategorias.create',
+        'uses'=>'SubcategoriasController@create'
+        ]);
+
 
 
 });

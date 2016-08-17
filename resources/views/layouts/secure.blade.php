@@ -148,6 +148,13 @@
 							<span class="text">Premios</span>
 						</a>
 					</li>
+
+					<li class="menu-dashboard">
+						<a href="{{url('admin/categorias')}}">
+							<i class="ion ion-ios-browsers"></i>
+							<span class="text">Categorias</span>
+						</a>
+					</li>
 	
 					@if(Shinobi::can('usuarios.access'))
 						<li class="menu-dashboard">
