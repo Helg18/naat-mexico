@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Requests\SubcategoriasRequest;
+use App\Http\Requests\EditarsubcategoriasRequest;
 use App\Models\Subcategorias;
 use App\Models\Categorias;
 use Illuminate\Routing\Route;
@@ -56,7 +57,7 @@ class SubcategoriasController extends Controller
     public function show($id)
     {
         $subcategoria     = Subcategorias::findorfail($id);
-        $categoria_actual = Categorias::findorfail($subcategoria->id);
+        $categoria_actual = Categorias::where('id',$subcategoria->categoria_id)->first();
         $categorias       = Categorias::lists('categoria', 'id')->all(); 
 
         return view('subcategorias.editar')
@@ -97,7 +98,7 @@ class SubcategoriasController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditarsubcategoriasRequest $request, $id)
     {
         $sc = Subcategorias::findorfail($id);
         $viejo = $sc->categoria_id;

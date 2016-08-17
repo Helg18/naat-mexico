@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class SubcategoriasRequest extends Request
+class EditarsubcategoriasRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,9 @@ class SubcategoriasRequest extends Request
     public function rules()
     {
         return [
-            'categoria'     => 'required|integer',
-            'subcategoria'  => 'required|min:4'
+            'categoria'     => 'required',
+            'is_active' => 'required',
+            'subcategoria' => 'required|min:4'
         ];
     }
 }
