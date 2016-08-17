@@ -92,6 +92,13 @@ Route::group(['prefix' => 'api'], function(){
         'uses' => 'Api\V1Controller@register'
         ]);
 
+    //Recuperar contraseña
+    Route::post('postRecoverPassword', [
+        'as' => 'postRecoverPassword',
+        'uses' => 'Api\V1Controller@postRecoverPassword'
+        ]);
+
+
     Route::group(['middleware' => 'jwt-auth'], function(){
         //Obtener las reglas del juego
         Route::POST('reglasdeljuego', [

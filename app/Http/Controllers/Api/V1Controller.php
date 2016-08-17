@@ -436,9 +436,9 @@ class V1Controller extends Controller
 
         if(User::where('email',$request->email)->first()){
             $x =  $this->sendResetLinkEmail($request);
-            return response()->json(['error'=>false,'message'=>'El link de recuperación de contraseña se ha enviado.']);
+            return response()->json(['error'=>false,'message'=>'El link de recuperación de contraseña se ha enviado.'], 200);
         }else{
-            return response()->json(['error'=>1,'message'=>'Email no registrado']);
+            return response()->json(['error'=>true,'message'=>'Email no registrado'], 404);
         }
 
     }
