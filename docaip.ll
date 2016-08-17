@@ -53,3 +53,12 @@ POST   =>        api/premios       => recibe: token
                                                 error
                                                 mensaje de error
                                                 
+
+//Categorias y subcategorias
+POST  =>         api/categorias      => recibe: token
+																		 => devuelve: todas las categorias
+																		              todas las subcategorias
+																		              error
+																		              mensaje de error
+
+																		              

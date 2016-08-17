@@ -16,6 +16,8 @@ use App\Models\Question;
 use App\Models\Regla;
 use App\Models\Fecha;
 use App\Models\Premios;
+use App\Models\Categorias;
+use App\Models\Subcategorias;
 
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -480,7 +482,16 @@ class V1Controller extends Controller
     }
 
 
+    /**
+     * Obtener las categorias y subcategorias
+     */
+    public function categorias(Request $request){
 
+        $categorias = Categorias::where('is_active',1)->get(['id','categoria']);
+        $subcategorias = Subcategorias::where('is_active', 1)->get(['id', 'categoria_id','subcategoria']);
+        
+        return response()->json(['error'=> false, 'categorias'=>$categorias, 'subcategorias' => $subcategorias], 200);
+    }
 
 
 

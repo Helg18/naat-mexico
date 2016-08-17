@@ -117,6 +117,12 @@ Route::group(['prefix' => 'api'], function(){
             'as' => 'API_premios',
             'uses' => 'Api\V1Controller@premios'
             ]);
+
+        //Obtener las categorias y subcategorias
+        Route::POST('categorias', [
+            'as' => 'API_categorias',
+            'uses' => 'Api\V1Controller@categorias'
+            ]);
     });
 
 });
