@@ -18,6 +18,7 @@ use App\Models\Fecha;
 use App\Models\Premios;
 use App\Models\Categorias;
 use App\Models\Subcategorias;
+use App\Models\Iniciativa;
 
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -493,6 +494,17 @@ class V1Controller extends Controller
         return response()->json(['error'=> false, 'categorias'=>$categorias, 'subcategorias' => $subcategorias], 200);
     }
 
+
+
+    /**
+     * Obtener las iniciativas
+     */
+    public function iniciativas(Request $request){
+
+        $iniciativas = Iniciativa::where('is_active', '=', 1)->get(['iniciativa']);
+
+        return response()->json(['error'=> false, 'iniciativas'=>$iniciativas], 200);
+    }
 
 
 

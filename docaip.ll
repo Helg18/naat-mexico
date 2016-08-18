@@ -61,4 +61,10 @@ POST  =>         api/categorias      => recibe: token
 																		              error
 																		              mensaje de error
 
+
+//Iniciativas
+POST =>          api/iniciativas       => recibe: token
+																			 => devuelve: todas las iniciativas activas
+																			              error
+																			              mensaje de error
 																		              

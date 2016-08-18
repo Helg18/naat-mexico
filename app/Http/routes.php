@@ -123,6 +123,12 @@ Route::group(['prefix' => 'api'], function(){
             'as' => 'API_categorias',
             'uses' => 'Api\V1Controller@categorias'
             ]);
+        
+        //Obtener las iniciativas
+        Route::POST('iniciativas', [
+            'as' => 'API_iniciativas',
+            'uses' => 'Api\V1Controller@iniciativas'
+            ]);
     });
 
 });
