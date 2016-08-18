@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Iniciativa;
 use App\Http\Requests;
+use App\Http\Requests\CrearIniciativaRequest;
+use App\Http\Requests\EditariniciativaRequest;
 
 class IniciativaController extends Controller
 {
@@ -15,7 +18,8 @@ class IniciativaController extends Controller
      */
     public function index()
     {
-        dd('Hola');
+        $i = Iniciativa::all();
+        return view('iniciativas.index')->with('iniciativas',$i);
     }
 
     /**
@@ -25,7 +29,7 @@ class IniciativaController extends Controller
      */
     public function create()
     {
-        //
+        return view('iniciativas.crear');
     }
 
     /**
@@ -34,9 +38,13 @@ class IniciativaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CrearIniciativaRequest $request)
     {
-        //
+        $i = new Iniciativa();
+        $i->iniciativa = $request->iniciativa;
+        $i->is_active = 1;
+        $i->save();
+        return redirect()->route('admin.iniciativas.index')->with('success','Iniciativa agregada exitosamente');
     }
 
     /**
@@ -47,7 +55,8 @@ class IniciativaController extends Controller
      */
     public function show($id)
     {
-        //
+        $i  = Iniciativa::findorfail($id);
+        return view('iniciativas.ver')->with('iniciativa', $i);
     }
 
     /**
@@ -58,7 +67,8 @@ class IniciativaController extends Controller
      */
     public function edit($id)
     {
-        //
+        $i  = Iniciativa::findorfail($id);
+        return view('iniciativas.editar')->with('iniciativa', $i);
     }
 
     /**
@@ -68,9 +78,13 @@ class IniciativaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(EditariniciativaRequest $request, $id)
     {
-        //
+        $i = Iniciativa::find($id);
+        $i->iniciativa = $request->iniciativa;
+        $i->is_active = $request->is_active;
+        $i->save();
+        return redirect()->route('admin.iniciativas.index')->with('success','Iniciativa actualizada exitosamente');
     }
 
     /**
@@ -81,6 +95,8 @@ class IniciativaController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $deletar = Iniciativa::find($id);
+        $deletar->destroy($id);
+        return redirect()->route('admin.iniciativas.index')->with('success','Iniciativa eliminada exitosamente');
     }
 }

@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class CrearIniciativaRequest extends Request
+class EditariniciativaRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,7 +24,8 @@ class CrearIniciativaRequest extends Request
     public function rules()
     {
         return [
-            'iniciativa'=>'required|min:4'
+            'iniciativa' => 'required|min:4',
+            'is_active' => 'required'
         ];
     }
 }

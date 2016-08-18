@@ -156,6 +156,8 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'auth'], function(){
         'uses'=>'SubcategoriasController@create'
         ]);
 
+    //Rutas para las iniciativas
+    Route::resource('iniciativas','IniciativaController');
 
 
 });

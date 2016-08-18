@@ -14,6 +14,8 @@ class CreateIniciativasTable extends Migration
     {
         Schema::create('iniciativas', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('iniciativa');
+            $table->boolean('is_active');
             $table->timestamps();
         });
     }
