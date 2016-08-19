@@ -24,7 +24,7 @@ class EditariniciativaRequest extends Request
     public function rules()
     {
         return [
-            'iniciativa' => 'required|min:4',
+            'titulo' => 'required|min:4',
             'is_active' => 'required'
         ];
     }

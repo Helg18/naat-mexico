@@ -41,7 +41,7 @@ class IniciativaController extends Controller
     public function store(CrearIniciativaRequest $request)
     {
         $i = new Iniciativa();
-        $i->iniciativa = $request->iniciativa;
+        $i->titulo = $request->iniciativa;
         $i->is_active = 1;
         $i->save();
         return redirect()->route('admin.iniciativas.index')->with('success','Iniciativa agregada exitosamente');
@@ -81,7 +81,7 @@ class IniciativaController extends Controller
     public function update(EditariniciativaRequest $request, $id)
     {
         $i = Iniciativa::find($id);
-        $i->iniciativa = $request->iniciativa;
+        $i->titulo = $request->iniciativa;
         $i->is_active = $request->is_active;
         $i->save();
         return redirect()->route('admin.iniciativas.index')->with('success','Iniciativa actualizada exitosamente');

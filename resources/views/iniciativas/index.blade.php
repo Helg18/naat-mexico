@@ -20,7 +20,7 @@
 		<tbody>
 		@foreach ($iniciativas as $iniciativa)
 			<tr>
-				<td>{!! $iniciativa->iniciativa !!}</td>
+				<td>{!! $iniciativa->titulo !!}</td>
 				<td>
 					<a href="{{ route('admin.iniciativas.show', $iniciativa->id) }}">
 						<i class="ion ion-arrow-right-b"></i>

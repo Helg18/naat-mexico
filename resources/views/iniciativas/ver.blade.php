@@ -2,7 +2,7 @@
 
 @section('content')
 
-<h1>{{$iniciativa->iniciativa}}</h1>
+<h1>{{$iniciativa->titulo}}</h1>
 <!-- tab style -->
 <div class="clearfix tabs-linearrow">
 	<ul class="nav nav-tabs">
@@ -14,7 +14,7 @@
 	<table>
 			<tr>
 				<td>{!! Form::label('iniciativa', 'Iniciativa') !!}</td>
-				<td>{!! Form::label('iniciativa', $iniciativa->iniciativa) !!}</td>
+				<td>{!! Form::label('titulo', $iniciativa->titulo) !!}</td>
 
 			</tr>
 			<tr>

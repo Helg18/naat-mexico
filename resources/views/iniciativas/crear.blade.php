@@ -23,7 +23,7 @@
 	<table>
 		<tr>
 			<td>{!! Form::label('iniciativa', 'Iniciativa') !!}</td>
-			<td>{!! Form::text('iniciativa', '', [ 'class' => 'form-control']) !!}</td>
+			<td>{!! Form::text('titulo', '', [ 'class' => 'form-control']) !!}</td>
 
 		</tr>
 		<tr>
