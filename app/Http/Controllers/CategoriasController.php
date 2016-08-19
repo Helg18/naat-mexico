@@ -42,7 +42,7 @@ class CategoriasController extends Controller
     {
         $c = new Categorias;
         $c->categoria = $request->categoria;
-        $c->isactive = 1;
+        $c->is_active = 1;
         $c->save();
         return redirect()->route('admin.categorias.index')->with('success','Categoria agregada exitosamente');
     }

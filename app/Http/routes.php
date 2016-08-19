@@ -128,6 +128,12 @@ Route::group(['prefix' => 'api'], function(){
         Route::POST('iniciativas', [
             'as' => 'API_iniciativas',
             'uses' => 'Api\V1Controller@iniciativas'
+            ]);        
+        
+        //Guardar_iniciativas
+        Route::POST('guardar_iniciativas', [
+            'as' => 'API_guardar_iniciativas',
+            'uses' => 'Api\V1Controller@guardar_iniciativas'
             ]);
     });
 

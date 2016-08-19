@@ -24,7 +24,7 @@ class SubcategoriasRequest extends Request
     public function rules()
     {
         return [
-            'categoria'     => 'required|integer',
+            'categoria'     => 'required',
             'subcategoria'  => 'required|min:4'
         ];
     }
