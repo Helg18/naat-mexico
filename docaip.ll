@@ -67,4 +67,18 @@ POST =>          api/iniciativas       => recibe: token
 																			 => devuelve: todas las iniciativas activas
 																			              error
 																			              mensaje de error
+
+//guardar_iniciativas
+POST  =>        api/guardar_iniciativas  => recibe: token
+																										arreglo de iniciativas o titulos de las iniciativas
+																										categoria_id
+																										id_subcategoria
+																										propuesta
+																										orden_propuesta
+																										evidencia_video
+																										evidencia_foto
+																										evidencia_texto
+																					=> Devuleve: mensaje
+																											 error
+																											 
 																		              
