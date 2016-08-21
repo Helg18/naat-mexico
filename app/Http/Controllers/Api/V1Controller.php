@@ -512,32 +512,41 @@ class V1Controller extends Controller
      */
     public function guardar_iniciativas(Request $request){
 
-        //guardo la iniciativa
-        $iniciativas = new Iniciativa();
-        $iniciativas->titulo = $request->titulo;
-        $iniciativas->save();
-        
         //obteniendo el user del token
-        $user=JWTAuth::parseToken();
+        $user = JWTAuth::parseToken();
         $user = JWTAuth::parseToken()->authenticate();
 
 
-        $iniciativasdetalles = new IniciativasDetalles();
-        $iniciativasdetalles->id_iniciativas  = $iniciativas->id;
-        $iniciativasdetalles->id_categoria    = $request->categoria_id;
-        $iniciativasdetalles->id_subcategoria = $request->id_subcategoria;
-        $iniciativasdetalles->id_user         = $request->id_user;
-        $iniciativasdetalles->propuesta       = $request->propuesta;
-        $iniciativasdetalles->orden_propuesta = $request->orden_propuesta;
-        $iniciativasdetalles->evidencia_video = $request->evidencia_video;
-        $iniciativasdetalles->evidencia_foto  = $request->evidencia_foto;
-        $iniciativasdetalles->evidencia_texto = $request->evidencia_texto;
-        $iniciativasdetalles->is_active = 1;
-        $iniciativasdetalles->save();
+        //Guardo el arreglo en una variable para su iteracion
+        $titulos = $request->titulo;
+
+        //Foreach para iterar el arreglo
+        foreach ($titulos as $titulo) {
+
+            //guardo la iniciativa
+            $iniciativas = new Iniciativa();
+            $iniciativas->titulo = $titulo;
+            $iniciativas->save();
+
+            //guardo la nueva relacion de iniciativas_detalles
+            $iniciativasdetalles = new IniciativasDetalles();
+            $iniciativasdetalles->id_iniciativas  = $iniciativas->id;
+            $iniciativasdetalles->id_categoria    = $request->categoria_id;
+            $iniciativasdetalles->id_subcategoria = $request->id_subcategoria;
+            $iniciativasdetalles->id_user         = $user->id;
+            $iniciativasdetalles->propuesta       = $request->propuesta;
+            $iniciativasdetalles->orden_propuesta = $request->orden_propuesta;
+            $iniciativasdetalles->evidencia_video = $request->evidencia_video;
+            $iniciativasdetalles->evidencia_foto  = $request->evidencia_foto;
+            $iniciativasdetalles->evidencia_texto = $request->evidencia_texto;
+            $iniciativasdetalles->is_active = 1;
+            $iniciativasdetalles->save();
+        
+        }//end foreach o iteracion del array
 
 
-
-        return response()->json(['error'=> false, 'mensaje'=>'Iniciativa guardada con exito'], 200);
+        //respondiendo por el API
+        return response()->json(['error'=> false, 'mensaje'=>'Iniciativas guardadas con exito'], 200);
     }
 
 
