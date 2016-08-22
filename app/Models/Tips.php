@@ -6,6 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Tips extends Model
 {
-	protected $table = 'reglasdeljuego';
+	protected $table = 'tips';
 	protected $fillable = ['tip', 'comentario', 'id_user', 'id_categoria', 'id_subcategoria'];
 }

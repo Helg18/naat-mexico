@@ -89,7 +89,7 @@ POST =>        api/decalogos            => recibe: token
 																										 mensaje de error
 																		              
 //Listar tips
-POST            api/tips                 => recibe:   token
+POST  =>          api/tips                 => recibe:   token
 																				 => devuelve: tips
 																											comentario
 																											id_user
@@ -97,3 +97,11 @@ POST            api/tips                 => recibe:   token
 																											id_subcategoria
 																											categorias
 																											subcategorias
+
+//Guardar Tips
+POST  =>        api/guardar_tip            => recibe: titulo
+																											comentario
+																											id_categoria
+																											id_subcategoria
+																					 => devuelve: error
+																					              mensaje

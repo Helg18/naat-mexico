@@ -148,6 +148,12 @@ Route::group(['prefix' => 'api'], function(){
             'uses' => 'Api\V1Controller@tips'
             ]);
 
+        //listar tips
+        Route::POST('guardar_tips', [
+            'as' => 'API_guardar_tips',
+            'uses' => 'Api\V1Controller@guardar_tips'
+            ]);
+
     });//fin de grupo de rutas para el middleware Auth
 
 });

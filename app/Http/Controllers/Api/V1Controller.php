@@ -573,6 +573,7 @@ class V1Controller extends Controller
         //obteniendo el user del token
         $user = JWTAuth::parseToken();
         $user = JWTAuth::parseToken()->authenticate();
+        $user_id = $user->id;
 
 
         $categorias = Categorias::where('is_active',1)->get(['id','categoria']);
@@ -596,6 +597,33 @@ class V1Controller extends Controller
             ], 200);
     }
 
+
+
+    /**
+     * Listar tips
+     */
+    public function guardar_tips(Request $request){
+
+        //obteniendo el user del token
+        $user = JWTAuth::parseToken();
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $t                  = new Tips;
+        $t->tip             = $request->titulo;
+        $t->comentario      = $request->comentario;
+        $t->id_user         = $user->id;
+        $t->id_categoria    = $request->id_categoria;
+        $t->id_subcategoria = $request->id_subcategoria;
+        $t->is_active = 1;
+        $t->save();
+
+
+        //retornamos los valores obtenidos
+        return response()->json([
+            'error'         => false, 
+            'mensaje'       => 'Tip guardado exitosamente'
+            ], 200);
+    }
 
 
 }
