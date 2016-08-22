@@ -134,6 +134,12 @@ Route::group(['prefix' => 'api'], function(){
         Route::POST('guardar_iniciativas', [
             'as' => 'API_guardar_iniciativas',
             'uses' => 'Api\V1Controller@guardar_iniciativas'
+            ]);        
+        
+        //Guardar_iniciativas
+        Route::POST('decalogos', [
+            'as' => 'API_decalogos',
+            'uses' => 'Api\V1Controller@decalogos'
             ]);
     });
 

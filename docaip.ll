@@ -81,4 +81,10 @@ POST  =>        api/guardar_iniciativas  => recibe: token
 																					=> Devuleve: mensaje
 																											 error
 																											 
+
+//decalogos
+POST =>        api/decalogos            => recibe: token
+																				=> devuelve: todos los decalogos activos
+																										 error
+																										 mensaje de error
 																		              

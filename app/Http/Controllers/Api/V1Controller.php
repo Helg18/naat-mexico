@@ -552,6 +552,16 @@ class V1Controller extends Controller
 
 
 
+    /**
+     * Obtener los decalogos
+     */
+    public function decalogos(Request $request){
+
+        $decalogos = Decalogo::where('is_active', '=', 1)->get(['decalogo']);
+
+        return response()->json(['error'=> false, 'decalogos'=>$decalogos], 200);
+    }
+
 
 
 }
