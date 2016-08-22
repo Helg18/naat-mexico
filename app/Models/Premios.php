@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Premios extends Model
 {
 	protected $table = 'premios';
-	protected $fillble = [
+	protected $fillable = [
 											  'premios', 
 											  'descripcion_premios', 
 											  'is_active',

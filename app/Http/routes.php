@@ -171,5 +171,7 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'auth'], function(){
     //Rutas para las iniciativas
     Route::resource('iniciativas','IniciativaController');
 
+    //Rutas para los Decalogos
+    Route::resource('decalogos','DecalogoController');
 
 });

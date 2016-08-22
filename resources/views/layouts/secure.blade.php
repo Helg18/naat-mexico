@@ -162,6 +162,13 @@
 							<span class="text">Iniciativas</span>
 						</a>
 					</li>
+
+					<li class="menu-dashboard">
+						<a href="{{url('admin/decalogos')}}">
+							<i class="ion ion-speakerphone"></i>
+							<span class="text">Decalogos</span>
+						</a>
+					</li>
 	
 					@if(Shinobi::can('usuarios.access'))
 						<li class="menu-dashboard">
