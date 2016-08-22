@@ -88,3 +88,12 @@ POST =>        api/decalogos            => recibe: token
 																										 error
 																										 mensaje de error
 																		              
+//Listar tips
+POST            api/tips                 => recibe:   token
+																				 => devuelve: tips
+																											comentario
+																											id_user
+																											id_categoria
+																											id_subcategoria
+																											categorias
+																											subcategorias

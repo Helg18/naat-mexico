@@ -136,12 +136,19 @@ Route::group(['prefix' => 'api'], function(){
             'uses' => 'Api\V1Controller@guardar_iniciativas'
             ]);        
         
-        //Guardar_iniciativas
+        //Listar decalogos
         Route::POST('decalogos', [
             'as' => 'API_decalogos',
             'uses' => 'Api\V1Controller@decalogos'
             ]);
-    });
+
+        //listar tips
+        Route::POST('tips', [
+            'as' => 'API_tips',
+            'uses' => 'Api\V1Controller@tips'
+            ]);
+
+    });//fin de grupo de rutas para el middleware Auth
 
 });
 

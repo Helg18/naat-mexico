@@ -20,6 +20,7 @@ use App\Models\Categorias;
 use App\Models\Subcategorias;
 use App\Models\Iniciativa;
 use App\Models\IniciativasDetalles;
+use App\Models\Tips;
 
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -560,6 +561,39 @@ class V1Controller extends Controller
         $decalogos = Decalogo::where('is_active', '=', 1)->get(['decalogo']);
 
         return response()->json(['error'=> false, 'decalogos'=>$decalogos], 200);
+    }
+
+
+
+    /**
+     * Listar tips
+     */
+    public function tips(Request $request){
+
+        //obteniendo el user del token
+        $user = JWTAuth::parseToken();
+        $user = JWTAuth::parseToken()->authenticate();
+
+
+        $categorias = Categorias::where('is_active',1)->get(['id','categoria']);
+        $subcategorias = Subcategorias::where('is_active', 1)->get(['id', 'categoria_id','subcategoria']);
+
+        $tips = Tips::where('is_active', '=', 1)         // obteniendo los tips activos
+                    ->where('id_user','=',$user->id)     // obteniendo los tips del usuario
+                    ->get([ 'tip',                       // Obteniendo las columnas que nos interesan
+                            'comentario', 
+                            'id_user',
+                            'id_categoria',
+                            'id_subcategoria']);
+        
+
+        //retornamos los valores obtenidos
+        return response()->json([
+            'error'         => false, 
+            'tips'          => $tips, 
+            'categorias'    => $categorias,
+            'subcategorias' => $subcategorias
+            ], 200);
     }
 
 
