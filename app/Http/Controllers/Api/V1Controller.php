@@ -503,7 +503,7 @@ class V1Controller extends Controller
      */
     public function iniciativas(Request $request){
 
-        $iniciativas = Iniciativa::where('is_active', '=', 1)->get(['iniciativa']);
+        $iniciativas = Iniciativa::where('is_active', '=', 1)->get(['id', 'titulo']);
 
         return response()->json(['error'=> false, 'iniciativas'=>$iniciativas], 200);
     }
@@ -527,6 +527,7 @@ class V1Controller extends Controller
             //guardo la iniciativa
             $iniciativas = new Iniciativa();
             $iniciativas->titulo = $titulo;
+            $iniciativas->is_active = 1;
             $iniciativas->save();
 
             //guardo la nueva relacion de iniciativas_detalles
@@ -558,7 +559,7 @@ class V1Controller extends Controller
      */
     public function decalogos(Request $request){
 
-        $decalogos = Decalogo::where('is_active', '=', 1)->get(['decalogo']);
+        $decalogos = Decalogo::where('is_active', '=', 1)->get(['id', 'decalogo']);
 
         return response()->json(['error'=> false, 'decalogos'=>$decalogos], 200);
     }
