@@ -121,6 +121,7 @@
 						</a>
 					</li>
 
+					@if (Auth::user()->id == 1)
 					<li class="menu-dashboard">
 						<a href="{{url('admin/usuarios')}}">
 							<i class="ion ion-person"></i>
@@ -155,6 +156,7 @@
 							<span class="text">Categorias</span>
 						</a>
 					</li>
+					@endif
 
 					<li class="menu-dashboard">
 						<a href="{{url('admin/iniciativas')}}">

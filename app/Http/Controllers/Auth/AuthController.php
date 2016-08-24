@@ -80,7 +80,8 @@ class AuthController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
-     */
+     * /
+     // Esta es la funcion que sobre escribe el metodo de login entre tipos de usuarios
     public function login(Request $request)
     {
         $u = User::where('email', '=', $request->email)->first();
@@ -128,6 +129,7 @@ class AuthController extends Controller
 
         return $this->sendFailedLoginResponse($request);
     }
+    */
 
 
 
