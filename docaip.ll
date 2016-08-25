@@ -105,3 +105,16 @@ POST  =>        api/guardar_tip            => recibe: titulo            => strin
 																											id_subcategoria   => ingeter
 																					 => devuelve: error                 => true o false
 																											  mensaje de error      => mensaje de error
+
+
+//guardar votaviones
+POST   =>       api/guardar_votaciones     =>  recibe:  token
+																												id_iniciativa => integer
+																												calificacion  => integer
+																												comentario    => text | Puede ser nulo
+																					 => devuelve: error         => true o false
+																					 							mensaje       => mensaje de estatus
+
+
+
+																			
