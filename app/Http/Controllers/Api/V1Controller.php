@@ -693,7 +693,7 @@ class V1Controller extends Controller
 
         return response()->json([
             'error'      => false, 
-            'mesnaje'    => 'Lista de topten',
+            'mensaje'    => 'Lista de topten',
             'top ten'    => $topten,
             'iniciativa' => $iniciativa,
             'users'      => $user
