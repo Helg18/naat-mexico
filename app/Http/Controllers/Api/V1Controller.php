@@ -23,6 +23,7 @@ use App\Models\IniciativasDetalles;
 use App\Models\Tips;
 use App\Models\Votaciones;
 
+use DB;
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
 use Illuminate\Foundation\Auth\ResetsPasswords;
@@ -672,6 +673,30 @@ class V1Controller extends Controller
             'votaciones'=>$votaciones,
             'iniciativa'=>$iniciativa,
             'users'     =>$user
+            ], 200);
+    }
+
+    /**
+     * Obtener las votaciones
+     */
+    public function top_ten(Request $request){
+
+        $iniciativa = Iniciativa::where('is_active', 1)->get(['id', 'titulo']);
+        $user = User::get(['id', 'name']);
+
+        $topten = DB::table('votaciones')
+                     ->select(DB::raw('avg(calificacion) as calificacion, id_iniciativa'))
+                     ->orderBy('calificacion', 'DESC')
+                     ->groupBy('id_iniciativa')
+                     ->take(10)
+                     ->get();
+
+        return response()->json([
+            'error'      => false, 
+            'mesnaje'    => 'Lista de topten',
+            'top ten'    => $topten,
+            'iniciativa' => $iniciativa,
+            'users'      => $user
             ], 200);
     }
 

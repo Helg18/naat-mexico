@@ -166,6 +166,12 @@ Route::group(['prefix' => 'api'], function(){
             'uses' => 'Api\V1Controller@listar_votaciones'
             ]);
 
+        //TOP TEN
+        Route::POST('top_ten', [
+            'as' => 'API_top_ten',
+            'uses' => 'Api\V1Controller@top_ten'
+            ]);
+
     });//fin de grupo de rutas para el middleware Auth
 
 });
