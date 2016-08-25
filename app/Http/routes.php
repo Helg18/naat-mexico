@@ -178,6 +178,12 @@ Route::group(['prefix' => 'api'], function(){
             'uses' => 'Api\V1Controller@listar_tips'
             ]);
 
+        //misiniciativas
+        Route::POST('misiniciativas', [
+            'as' => 'API_misiniciativas',
+            'uses' => 'Api\V1Controller@misiniciativas'
+            ]);
+
     });//fin de grupo de rutas para el middleware Auth
 
 });

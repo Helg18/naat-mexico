@@ -728,6 +728,34 @@ class V1Controller extends Controller
 
 
 
+    /**
+     * Obtener mis iniciativas ( iniciativas dek usuario logueado)
+     */
+    public function misiniciativas(Request $request){
+
+        //obteniendo el user del token
+        $user = JWTAuth::parseToken();
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $iniciativas = Iniciativa::get(['id','titulo']);
+        $iniciativasdetalles = IniciativasDetalles::where('is_active', '=', 1)
+                                ->where('id_user',$user->id)
+                                ->get([
+                                        'id_iniciativas',
+                                        'id_categoria',
+                                        'id_subcategoria',
+                                        'propuesta',
+                                        'orden_propuesta',
+                                        'evidencia_video',
+                                        'evidencia_foto',
+                                        'evidencia_texto'
+                                      ]);
+
+        return response()->json(['error'=> false, 'iniciativasdetalles'=>$iniciativasdetalles, 'iniciativas' => $iniciativas], 200);
+    }
+
+
+
 }
 
 

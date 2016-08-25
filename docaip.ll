@@ -143,4 +143,17 @@ POST   =>  api/listar_tips      => recibe:    token
 																							mensaje de error => mensaje de error
 
 
-																							
+//mis iniciativas
+POST   =>  api/miiniciativas    =>   recibe: token
+                                => devuelve: iniciativasdetalles => array con los siguientes campos
+													                                						 id_iniciativas   => integer 
+													                                             id_categoria     => integer 
+													                                             id_subcategoria  => integer
+													                                        		 propuesta        => text
+													                                        		 orden_propuesta  => integer
+													                                        		 evidencia_video  => text
+													                                        		 evidencia_foto   => text
+													                                        		 evidencia_te     => text
+													                   iniciativas    =>  array [id->integer    titulo->string]
+
+
