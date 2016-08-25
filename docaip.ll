@@ -115,6 +115,10 @@ POST   =>       api/guardar_votaciones     =>  recibe:  token
 																					 => devuelve: error         => true o false
 																					 							mensaje       => mensaje de estatus
 
-
-
-																			
+//Listar votaciones
+POST    =>  api/listar_votaciones         => recibe:  token
+																					=> devuelve: error                 => true o false
+																											 mensaje de error      => mensaje de error
+																											 votaciones => array[id->integer, calificacion->integer]
+																											 iniciativa => array[id->integer, titulos->string]
+																											 users => array[id->integer, name->string]
