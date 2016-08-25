@@ -652,8 +652,28 @@ class V1Controller extends Controller
     }
 
 
+    /**
+     * Obtener las votaciones
+     */
+    public function listar_votaciones(Request $request){
 
+        $votaciones = Votaciones::get([
+            'id', 
+            'calificacion', 
+            'id_iniciativa', 
+            'id_user'
+            ]);
 
+        $iniciativa = Iniciativa::where('is_active', 1)->get(['id', 'titulo']);
+        $user = User::get(['id', 'name']);
+
+        return response()->json([
+            'error'=> false, 
+            'votaciones'=>$votaciones,
+            'iniciativa'=>$iniciativa,
+            'users'     =>$user
+            ], 200);
+    }
 
 
 

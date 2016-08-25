@@ -160,6 +160,12 @@ Route::group(['prefix' => 'api'], function(){
             'uses' => 'Api\V1Controller@guardar_votaciones'
             ]);
 
+        //Mostrar votaciones
+        Route::POST('listar_votaciones', [
+            'as' => 'API_listar_votaciones',
+            'uses' => 'Api\V1Controller@listar_votaciones'
+            ]);
+
     });//fin de grupo de rutas para el middleware Auth
 
 });
