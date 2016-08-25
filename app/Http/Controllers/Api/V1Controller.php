@@ -701,6 +701,32 @@ class V1Controller extends Controller
     }
 
 
+    /**
+     * Listar tips
+     */
+    public function listar_tips(Request $request){
+
+        $categorias = Categorias::where('is_active',1)->get(['id','categoria']);
+        $subcategorias = Subcategorias::where('is_active', 1)->get(['id', 'categoria_id','subcategoria']);
+
+        $tips = Tips::where('is_active', '=', 1)         // obteniendo los tips activos
+                    ->get([ 'tip',                       // Obteniendo las columnas que nos interesan
+                            'comentario', 
+                            'id_user',
+                            'id_categoria',
+                            'id_subcategoria']);
+        
+
+        //retornamos los valores obtenidos
+        return response()->json([
+            'error'         => false, 
+            'tips'          => $tips, 
+            'categorias'    => $categorias,
+            'subcategorias' => $subcategorias
+            ], 200);
+    }
+
+
 
 }
 

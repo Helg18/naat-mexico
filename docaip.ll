@@ -89,7 +89,7 @@ POST =>        api/decalogos            => recibe: token
 																										 error                 => true o false
 																										 mensaje de error      => mensaje de error
 																		              
-//Listar tips
+//Listar mis tips
 POST  =>          api/tips               => recibe:   token
 																				 => devuelve: tips                  => array principal array[id->integer, tip->string]
 																											comentario            => string
@@ -131,3 +131,16 @@ POST     =>   api/top_ten               =>  recibe:  token
 																										 'top ten'    => $array ,
 																										 'iniciativa' => $iniciativa,
 																										 'users'      => $user
+
+
+//listar_tips ---> TODOS LOS TIPS 
+POST   =>  api/listar_tips      => recibe:    token
+																=> devuelve:  tips             => array principal array[id->integer, tip->string]
+																							comentario       => string
+																							categorias       => Esta dentro del array principal tinee id->integer | y titulo->string
+																							subcategorias    => Esta dentro del array principal tinee id->integer | y titulo->string
+																							error            => true o false
+																							mensaje de error => mensaje de error
+
+
+																							

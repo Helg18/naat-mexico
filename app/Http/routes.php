@@ -172,6 +172,12 @@ Route::group(['prefix' => 'api'], function(){
             'uses' => 'Api\V1Controller@top_ten'
             ]);
 
+        //listar_tips
+        Route::POST('listar_tips', [
+            'as' => 'API_listar_tips',
+            'uses' => 'Api\V1Controller@listar_tips'
+            ]);
+
     });//fin de grupo de rutas para el middleware Auth
 
 });
