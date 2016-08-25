@@ -21,6 +21,7 @@ use App\Models\Subcategorias;
 use App\Models\Iniciativa;
 use App\Models\IniciativasDetalles;
 use App\Models\Tips;
+use App\Models\Votaciones;
 
 use JWTAuth;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -625,6 +626,35 @@ class V1Controller extends Controller
             'mensaje'       => 'Tip guardado exitosamente'
             ], 200);
     }
+
+
+    /**
+     * Guardar votacion
+     */
+    public function guardar_votaciones(Request $request){
+
+        //obteniendo el user del token
+        $user = JWTAuth::parseToken();
+        $user = JWTAuth::parseToken()->authenticate();
+
+        //creando un objeto vacio
+        $votaciones = new Votaciones();
+
+        //llenando los datos del objeto con los traido del request
+        $votaciones->id_iniciativa = $request->id_iniciativa;
+        $votaciones->calificacion = $request->calificacion;
+        $votaciones->comentario = $request->comentario;
+        $votaciones->id_user = $user->id;
+
+        $votaciones->save();
+
+        return response()->json(['error'=> false, 'mensaje'=>'La calificafion fue recibida exitosamente'], 200);
+    }
+
+
+
+
+
 
 
 }
