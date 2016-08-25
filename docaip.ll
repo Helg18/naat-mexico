@@ -122,3 +122,12 @@ POST    =>  api/listar_votaciones         => recibe:  token
 																											 votaciones => array[id->integer, calificacion->integer]
 																											 iniciativa => array[id->integer, titulos->string]
 																											 users => array[id->integer, name->string]
+
+//TOPTEN
+POST     =>   api/top_ten               =>  recibe:  token
+																										
+																				=> devuelve: error              => true o false
+																										 mensaje de error   => mensaje de error
+																										 'top ten'    => $array ,
+																										 'iniciativa' => $iniciativa,
+																										 'users'      => $user
