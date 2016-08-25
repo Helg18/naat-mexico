@@ -99,6 +99,7 @@ class V1Controller extends Controller
         $u->nombre  = $request->nombre;
         $u->email  = $request->email;
         $u->apellido  = $request->apellido;
+        $u->foto  = $request->foto;
         $u->fecha_nac  = $request->fecha_nac;
         $u->fecha_ingreso_uvm  = $request->fecha_ingreso_uvm;
         $u->celular  = $request->celular;

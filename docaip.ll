@@ -12,7 +12,8 @@ POST  =>     api/login      => recibe:  email      => email
 //Register
 POST =>      api/register  => recibe:   nombre              => string
 																				apellido            => string
-																				fecha_nac           => dd-mm-aaaa
+																				foto                => image jpg|jpeg max:2mb
+																				fecha_nac           => dd-mm-aaaad
 																				fecha_ingreso_uvm   => dd-mm-aaaa
 																				celular             => string
 																				puesto              => string
