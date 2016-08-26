@@ -53,11 +53,11 @@ class V1Controller extends Controller
         try {
             // intento verificar las credenciales y crear un token para el usuario
             if (! $token = JWTAuth::attempt($credenciales)) {
-                return response()->json(['error' => 'credenciales_invalidas'], 401);
+                return response()->json(['error'=>true, 'mensaje' => 'credenciales_invalidas'], 401);
             }
         } catch (JWTException $e) {
             // Algo salio mal al intentar crear el token :(
-            return response()->json(['error' => 'no_se_ha_podido_crear_el_token'], 500);
+            return response()->json(['error'=>true, 'mensaje'=> 'no_se_ha_podido_crear_el_token'], 401);
         }
 
 
@@ -128,10 +128,10 @@ class V1Controller extends Controller
 
       try {
             if (! $token = JWTAuth::attempt($credenciales)) {
-                return response()->json(['error' => 'credenciales_invalidas'], 401);
+                return response()->json(['error'=>true, 'mensaje' => 'credenciales_invalidas'], 401);
             }
         } catch (JWTException $e) {
-            return response()->json(['error' => 'no_se_ha_podido_crear_el_token'], 500);
+            return response()->json(['error'=>true, 'mensaje' => 'no_se_ha_podido_crear_el_token'], 401);
         }
 
       return response()->json(['error'=>false,'message'=>'Usuario creado exitosamente', 'token'=>$token], 200);
