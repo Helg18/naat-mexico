@@ -22,6 +22,8 @@ use App\Models\Iniciativa;
 use App\Models\IniciativasDetalles;
 use App\Models\Tips;
 use App\Models\Votaciones;
+use App\Models\Preguntas;
+use App\Models\Respuestas;
 
 use DB;
 use JWTAuth;
@@ -755,6 +757,24 @@ class V1Controller extends Controller
         return response()->json(['error'=> false, 'iniciativasdetalles'=>$iniciativasdetalles, 'iniciativas' => $iniciativas], 200);
     }
 
+
+
+    /**
+     * Guardar preguntas
+     */
+    public function guardar_pregunta(Request $request){
+
+        //obteniendo el user del token
+        $user = JWTAuth::parseToken();
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $pregunta = new Preguntas();
+        $pregunta->pregunta=$request->pregunta;
+        $pregunta->id_user=$user->id;
+        $pregunta->save();
+        
+        return response()->json(['error'=> false, 'mensaje' => 'Pregunta guardada con exito'], 200);
+    }
 
 
 }

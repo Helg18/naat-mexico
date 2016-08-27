@@ -184,6 +184,12 @@ Route::group(['prefix' => 'api'], function(){
             'uses' => 'Api\V1Controller@misiniciativas'
             ]);
 
+        //guardar_preguntas
+        Route::POST('guardar_pregunta', [
+            'as' => 'API_guardar_pregunta',
+            'uses' => 'Api\V1Controller@guardar_pregunta'
+            ]);
+
     });//fin de grupo de rutas para el middleware Auth
 
 });
