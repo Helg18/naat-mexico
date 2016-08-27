@@ -207,6 +207,12 @@ Route::group(['prefix' => 'api'], function(){
 });
 
 
+//route para descargar docapi.ll
+Route::get('docapi', function(){
+    $docapi = "../docaip.ll";
+    return response()->download($docapi);
+});
+
 /**
  * Fin de rutas para login a traves de API
  */
