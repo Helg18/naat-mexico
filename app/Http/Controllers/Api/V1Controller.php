@@ -770,12 +770,30 @@ class V1Controller extends Controller
 
         $pregunta = new Preguntas();
         $pregunta->pregunta=$request->pregunta;
-        $pregunta->id_user=$user->id;
+        $pregunta->user_id=$user->id;
         $pregunta->save();
         
         return response()->json(['error'=> false, 'mensaje' => 'Pregunta guardada con exito'], 200);
     }
 
+
+    /**
+     * Guardar respuestas
+     */
+    public function guardar_respuesta(Request $request){
+
+        //obteniendo el user del token
+        $user = JWTAuth::parseToken();
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $respuestas = new Respuestas();
+        $respuestas->respuesta=$request->respuesta;
+        $respuestas->preguntas_id=$request->preguntas_id;
+        $respuestas->user_id=$user->id;
+        $respuestas->save();
+        
+        return response()->json(['error'=> false, 'mensaje' => 'Respuesta guardada con exito'], 200);
+    }
 
 }
 

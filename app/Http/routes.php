@@ -190,6 +190,12 @@ Route::group(['prefix' => 'api'], function(){
             'uses' => 'Api\V1Controller@guardar_pregunta'
             ]);
 
+        //guardar_respuesta
+        Route::POST('guardar_respuesta', [
+            'as' => 'API_guardar_respuesta',
+            'uses' => 'Api\V1Controller@guardar_respuesta'
+            ]);
+
     });//fin de grupo de rutas para el middleware Auth
 
 });
