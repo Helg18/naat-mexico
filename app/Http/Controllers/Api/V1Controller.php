@@ -22,6 +22,7 @@ use App\Models\Iniciativa;
 use App\Models\IniciativasDetalles;
 use App\Models\Tips;
 use App\Models\Votaciones;
+use App\Models\Tips_votaciones;
 use App\Models\Preguntas;
 use App\Models\Respuestas;
 
@@ -657,7 +658,7 @@ class V1Controller extends Controller
 
         $votaciones->save();
 
-        return response()->json(['error'=> false, 'mensaje'=>'La calificafion fue recibida exitosamente'], 200);
+        return response()->json(['error'=> false, 'mensaje'=>'La calificafion de la iniciativa fue recibida exitosamente'], 200);
     }
 
 
@@ -823,6 +824,33 @@ class V1Controller extends Controller
         $respuestas = Respuestas::where('quien_pregunto', $user->id)->get(['id', 'respuesta', 'preguntas_id']);
         
         return response()->json(['error'=> false, 'preguntas'=> $preguntas, 'respuestas' => $respuestas ], 200);
+    }
+
+
+
+
+
+    /**
+     * Guardar votaciones de los tips
+     */
+    public function guardar_votaciones_tips(Request $request){
+
+        //obteniendo el user del token
+        $user = JWTAuth::parseToken();
+        $user = JWTAuth::parseToken()->authenticate();
+
+        //creando un objeto vacio
+        $votaciones = new Tips_votaciones();
+
+        //llenando los datos del objeto con los traido del request
+        $votaciones->tip_id       = $request->tip_id;
+        $votaciones->calificacion = $request->calificacion;
+        $votaciones->comentario   = $request->comentario;
+        $votaciones->id_user      = $user->id;
+
+        $votaciones->save();
+
+        return response()->json(['error'=> false, 'mensaje'=>'La calificafion del tip fue recibida exitosamente'], 200);
     }
 
 }
