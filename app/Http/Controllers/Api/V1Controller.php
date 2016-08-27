@@ -786,13 +786,31 @@ class V1Controller extends Controller
         $user = JWTAuth::parseToken();
         $user = JWTAuth::parseToken()->authenticate();
 
+        $p = Preguntas::find($request->preguntas_id);
+
         $respuestas = new Respuestas();
         $respuestas->respuesta=$request->respuesta;
         $respuestas->preguntas_id=$request->preguntas_id;
         $respuestas->user_id=$user->id;
+        $respuestas->quien_pregunto=$p->user_id;
         $respuestas->save();
         
         return response()->json(['error'=> false, 'mensaje' => 'Respuesta guardada con exito'], 200);
+    }
+
+
+    /**
+     * Listar las preguntas y respuestas
+     */
+    public function preguntas_respuestas(Request $request){
+        //obteniendo el user del token
+        $user = JWTAuth::parseToken();
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $preguntas = Preguntas::where('user_id', $user->id)->get(['id','pregunta']);
+        $respuestas = Respuestas::where('quien_pregunto', $user->id)->get(['id', 'respuesta', 'preguntas_id']);
+        
+        return response()->json(['error'=> false, 'preguntas'=> $preguntas, 'respuestas' => $respuestas ], 200);
     }
 
 }

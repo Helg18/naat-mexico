@@ -16,6 +16,7 @@ class CreateRespuestasTable extends Migration
             $table->increments('id');
             $table->text('respuesta');
             $table->integer('user_id')->unsigned();
+            $table->integer('quien_pregunto')->unsigned();
             $table->integer('preguntas_id')->unsigned();
             $table->foreign('preguntas_id')->references('id')->on('preguntas');
             $table->timestamps();
