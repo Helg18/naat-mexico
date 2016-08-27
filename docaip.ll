@@ -69,6 +69,8 @@ POST =>          api/iniciativas       => recibe: token
 																			              titulo                => string esta en el array
 																			              error                 => true o false
 																			              mensaje de error      => mensaje de error
+																			              valoraciones => array[calificaion->float, id_iniciativas->integer]
+
 
 //guardar_iniciativas
 POST  =>        api/guardar_iniciativas  => recibe: token
@@ -156,6 +158,7 @@ POST   =>  api/miiniciativas    =>   recibe: token
 													                                        		 evidencia_foto   => text
 													                                        		 evidencia_te     => text
 													                   iniciativas    =>  array [id->integer    titulo->string]
+													                   valoraciones => array[calificaion->float, id_iniciativas->integer]
 
 //guardar preguntas
 POST    => api/guardar_pregunta        => Recibe: token 

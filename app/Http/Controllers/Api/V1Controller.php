@@ -509,8 +509,13 @@ class V1Controller extends Controller
     public function iniciativas(Request $request){
 
         $iniciativas = Iniciativa::where('is_active', '=', 1)->get(['id', 'titulo']);
+        $valoraciones = DB::table('votaciones')
+                     ->select(DB::raw('avg(calificacion) as calificacion, id_iniciativa'))
+                     ->orderBy('calificacion', 'DESC')
+                     ->groupBy('id_iniciativa')
+                     ->get();
 
-        return response()->json(['error'=> false, 'iniciativas'=>$iniciativas], 200);
+        return response()->json(['error'=> false, 'iniciativas'=>$iniciativas, 'votaciones' => $valoraciones], 200);
     }
 
     /**
@@ -754,7 +759,14 @@ class V1Controller extends Controller
                                         'evidencia_texto'
                                       ]);
 
-        return response()->json(['error'=> false, 'iniciativasdetalles'=>$iniciativasdetalles, 'iniciativas' => $iniciativas], 200);
+        $valoraciones = DB::table('votaciones')
+                     ->select(DB::raw('avg(calificacion) as calificacion, id_iniciativa'))
+                     ->orderBy('calificacion', 'DESC')
+                     ->groupBy('id_iniciativa')
+                     ->get();
+
+
+        return response()->json(['error'=> false, 'iniciativasdetalles'=>$iniciativasdetalles, 'iniciativas' => $iniciativas, 'votaciones'=>$valoraciones], 200);
     }
 
 
