@@ -598,14 +598,21 @@ class V1Controller extends Controller
                             'id_user',
                             'id_categoria',
                             'id_subcategoria']);
+
+        $valoraciones = DB::table('tips_votaciones')
+                        ->select(DB::raw('avg(calificacion) as calificacion, tip_id'))
+                        ->orderBy('calificacion', 'DESC')
+                        ->groupBy('tip_id')
+                        ->get();
         
 
         //retornamos los valores obtenidos
         return response()->json([
-            'error'         => false, 
-            'tips'          => $tips, 
-            'categorias'    => $categorias,
-            'subcategorias' => $subcategorias
+            'error'           => false, 
+            'tips'            => $tips, 
+            'categorias'      => $categorias,
+            'subcategorias'   => $subcategorias,
+            'votaciones_tips' => $valoraciones
             ], 200);
     }
 
@@ -724,14 +731,21 @@ class V1Controller extends Controller
                             'id_user',
                             'id_categoria',
                             'id_subcategoria']);
+
+        $valoraciones = DB::table('tips_votaciones')
+                        ->select(DB::raw('avg(calificacion) as calificacion, tip_id'))
+                        ->orderBy('calificacion', 'DESC')
+                        ->groupBy('tip_id')
+                        ->get();
         
 
         //retornamos los valores obtenidos
         return response()->json([
-            'error'         => false, 
-            'tips'          => $tips, 
-            'categorias'    => $categorias,
-            'subcategorias' => $subcategorias
+            'error'             => false, 
+            'tips'              => $tips, 
+            'categorias'        => $categorias,
+            'subcategorias'     => $subcategorias,
+            'calificacion_tips' => $valoraciones
             ], 200);
     }
 
@@ -853,6 +867,15 @@ class V1Controller extends Controller
         return response()->json(['error'=> false, 'mensaje'=>'La calificafion del tip fue recibida exitosamente'], 200);
     }
 
-}
+
+
+
+
+
+
+
+
+
+}// fin de la clase
 
 
