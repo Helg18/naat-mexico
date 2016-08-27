@@ -157,4 +157,21 @@ POST   =>  api/miiniciativas    =>   recibe: token
 													                                        		 evidencia_te     => text
 													                   iniciativas    =>  array [id->integer    titulo->string]
 
+//guardar preguntas
+POST    => api/guardar_pregunta        => Recibe: token 
+																									pregunta->text
+																			 =>devuelve: error estatus true o false
+																			 						 mensaje de estatus -> string
 
+
+//Guardar respuesta
+POST  =>     api/guardar_pregunta      => recibe: token
+																									respuesta->text
+																									preguntas_id->ingeter
+																			 =>devuelve: error estatus true o false
+																			 						 mensaje de estatus -> string
+
+//listar preguntas y respuestas de un usuario logueado
+POST   =>    api/preguntas_respuestas       =>  recibe: token
+																						=>devuelve: preguntas->array[id->integer, pregunta->text]
+																												respuestas->array[id->integer, respuesta->text, preguntas_id->integer]
