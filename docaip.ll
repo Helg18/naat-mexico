@@ -94,13 +94,13 @@ POST =>        api/decalogos            => recibe: token
 																		              
 //Listar mis tips
 POST  =>          api/tips               => recibe:   token
-																				 => devuelve: tips                  => array principal array[id->integer, tip->string]
-																											comentario            => string
-																											categorias            => Esta dentro del array principal tinee id->integer | y titulo->string
-																											subcategorias         => Esta dentro del array principal tinee id->integer | y titulo->string
-																											error                 => true o false
-																											mensaje de error      => mensaje de error
-																											votaciones_tips       => array[tip_id->integer, calificacion->float]
+																				 => devuelve: 'id'           => integer
+																											'tip'          => string
+																											'comentario'   => string
+																											'id_user'      => integer
+																											'categoria'    => string
+																											'subcategoria' => string
+																											'votos'        => flotante
 
 //Guardar Tips
 POST  =>        api/guardar_tip            => recibe: titulo            => string
@@ -151,17 +151,24 @@ POST   =>  api/listar_tips      => recibe:    token
 
 //mis iniciativas
 POST   =>  api/miiniciativas    =>   recibe: token
-                                => devuelve: iniciativasdetalles => array con los siguientes campos
-													                                						 id_iniciativas   => integer 
-													                                             id_categoria     => integer 
-													                                             id_subcategoria  => integer
-													                                        		 propuesta        => text
-													                                        		 orden_propuesta  => integer
-													                                        		 evidencia_video  => text
-													                                        		 evidencia_foto   => text
-													                                        		 evidencia_te     => text
-													                   iniciativas    =>  array [id->integer    titulo->string]
-													                   valoraciones => array[calificaion->float, id_iniciativas->integer]
+                                => devuelve:
+																						'id_iniciativas'  => integer
+																						'id_categoria'    => integer
+																						'categoria'       => string
+																						'id_subcategoria' => integer
+																						'id_user'         => integer
+																						'propuesta'       => string
+																						'orden_propuesta' => string
+																						'evidencia_video' => string
+																						'evidencia_foto'  => string
+																						'evidencia_texto' => string
+																						'is_active'       => integer
+																						'id'              => integer
+																						'titulo'          => string
+																						'is_active'       => integer
+																						'votaciones'      => flotante
+
+
 
 //guardar preguntas
 POST    => api/guardar_pregunta        => Recibe: token 
