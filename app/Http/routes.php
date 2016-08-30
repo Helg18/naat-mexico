@@ -208,6 +208,12 @@ Route::group(['prefix' => 'api'], function(){
             'uses' => 'Api\V1Controller@guardar_votaciones_tips'
             ]);
 
+        //guardar_votaciones_iniciativas
+        Route::POST('guardar_votaciones_iniciativas', [
+            'as' => 'API_guardar_votaciones_iniciativas',
+            'uses' => 'Api\V1Controller@guardar_votaciones_iniciativas'
+            ]);
+
     });//fin de grupo de rutas para el middleware Auth
 
 });

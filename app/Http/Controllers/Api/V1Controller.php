@@ -23,6 +23,7 @@ use App\Models\IniciativasDetalles;
 use App\Models\Tips;
 use App\Models\Votaciones;
 use App\Models\Tips_votaciones;
+use App\Models\Iniciativas_votaciones;
 use App\Models\Preguntas;
 use App\Models\Respuestas;
 
@@ -756,8 +757,36 @@ class V1Controller extends Controller
      */
     public function misiniciativas(Request $request){
 
-        //obteniendo el user del token
         $user = JWTAuth::parseToken();
+        $user = JWTAuth::parseToken()->authenticate();
+
+        $iniciativas = Iniciativa::allForJson();
+
+
+
+        return response()->json([$iniciativas]);
+
+        /*foreach ($iniciativas as $key => $value) {
+                $inicia = Iniciativa::find($value->id)->first(['id','titulo']);
+                $subsubcategorias[$value->id] = IniciativasDetalles::where('id_iniciativas', '=', $value->id)->get(['id_iniciativas', 'id_categoria', 'id_subcategoria', 'propuesta', 'orden_propuesta', 'evidencia_video', 'evidencia_foto', 'evidencia_texto']);
+
+
+
+                $subsubcategorias[$value->id]->prepend($inicia->titulo, 'iniciativa');
+                $subsubcategorias[$value->id]->prepend($inicia->id, 'id_iniciativa');
+                
+                $voto = Votaciones::where('id_iniciativa', $value->id)->get(['calificacion']);
+                $calificacion = $voto->avg();
+                if (is_null($calificacion)) {
+                    $calificacion=0;
+                }
+                $subsubcategorias[$value->id]->prepend($calificacion, 'voto');
+                
+        } 
+        dd($e); */
+
+        //obteniendo el user del token
+        /*$user = JWTAuth::parseToken();
         $user = JWTAuth::parseToken()->authenticate();
 
         $iniciativas = Iniciativa::get(['id','titulo']);
@@ -781,7 +810,9 @@ class V1Controller extends Controller
                      ->get();
 
 
-        return response()->json(['error'=> false, 'iniciativasdetalles'=>$iniciativasdetalles, 'iniciativas' => $iniciativas, 'votaciones'=>$valoraciones], 200);
+
+
+        return response()->json(['error'=> false, 'iniciativasdetalles'=>$iniciativasdetalles, 'iniciativas' => $iniciativas, 'votaciones'=>$valoraciones], 200);*/
     }
 
 
@@ -865,6 +896,30 @@ class V1Controller extends Controller
         $votaciones->save();
 
         return response()->json(['error'=> false, 'mensaje'=>'La calificafion del tip fue recibida exitosamente'], 200);
+    }
+
+
+    /**
+     * Guardar votaciones de los tips
+     */
+    public function guardar_votaciones_iniciativas(Request $request){
+
+        //obteniendo el user del token
+        $user = JWTAuth::parseToken();
+        $user = JWTAuth::parseToken()->authenticate();
+
+        //creando un objeto vacio
+        $votaciones = new Iniciativas_votaciones();
+
+        //llenando los datos del objeto con los traido del request
+        $votaciones->iniciativas_id = $request->iniciativas_id;
+        $votaciones->calificacion   = $request->calificacion;
+        $votaciones->comentario     = $request->comentario;
+        $votaciones->id_user        = $user->id;
+
+        $votaciones->save();
+
+        return response()->json(['error'=> false, 'mensaje'=>'La calificafion de la iniciativa fue recibida exitosamente'], 200);
     }
 
 
