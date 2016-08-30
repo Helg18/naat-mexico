@@ -588,8 +588,10 @@ class V1Controller extends Controller
         $user = JWTAuth::parseToken()->authenticate();
         $user_id = $user->id;
 
+        return response()->json(Tips::allForJson());
 
-        $categorias = Categorias::where('is_active',1)->get(['id','categoria']);
+
+        /*$categorias = Categorias::where('is_active',1)->get(['id','categoria']);
         $subcategorias = Subcategorias::where('is_active', 1)->get(['id', 'categoria_id','subcategoria']);
 
         $tips = Tips::where('is_active', '=', 1)         // obteniendo los tips activos
@@ -614,7 +616,7 @@ class V1Controller extends Controller
             'categorias'      => $categorias,
             'subcategorias'   => $subcategorias,
             'votaciones_tips' => $valoraciones
-            ], 200);
+            ], 200);*/
     }
 
 
