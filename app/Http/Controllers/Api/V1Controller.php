@@ -674,22 +674,11 @@ class V1Controller extends Controller
      */
     public function top_ten(Request $request){
 
-        $iniciativa = Iniciativa::where('is_active', 1)->get(['id', 'titulo']);
-        $user = User::get(['id', 'name']);
-
-        $topten = DB::table('votaciones')
-                     ->select(DB::raw('avg(calificacion) as calificacion, id_iniciativa'))
-                     ->orderBy('calificacion', 'DESC')
-                     ->groupBy('id_iniciativa')
-                     ->take(10)
-                     ->get();
+        $topten = Iniciativa::top_ten();
 
         return response()->json([
             'error'      => false, 
-            'mensaje'    => 'Lista de topten',
-            'top ten'    => $topten,
-            'iniciativa' => $iniciativa,
-            'users'      => $user
+            'topten'    => $topten
             ], 200);
     }
 

@@ -41,6 +41,7 @@ public static function categoria($id_categoria){
 	}
 
 
+
 	public static function detalles($id_iniciativa){
 		$detalles = IniciativasDetalles::where('id_iniciativas', $id_iniciativa)->get(['id_iniciativas', 'id_categoria', 'id_subcategoria', 'id_user', 'propuesta', 'orden_propuesta', 'evidencia_video', 'evidencia_foto', 'evidencia_texto', 'is_active']);
 		
@@ -103,6 +104,26 @@ public static function categoria($id_categoria){
 			];
 		}
 		return $data;
+	}
+
+	public static function top_ten(){
+			$topten =  DB::table('votaciones')
+                     ->select(DB::raw('avg(calificacion) as calificacion, iniciativa_id'))
+                     ->orderBy('calificacion', 'DESC')
+                     ->groupBy('iniciativa_id')
+                     ->take(10)
+                     ->get();
+      $data = [];
+   		foreach ($topten as $c) {
+   			$data[] = [
+								'iniciativa_id'   => $c->iniciativa_id,
+								'calificacion'    => $c->calificacion,
+								'detalles'        => Iniciativa::detalles($c->iniciativa_id)
+								];
+   		}
+
+   		return $data;
+
 	}
 
 
