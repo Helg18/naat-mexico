@@ -150,7 +150,7 @@ POST   =>  api/listar_tips      => recibe:    token
 
 
 //mis iniciativas
-POST   =>  api/miiniciativas    =>   recibe: token
+POST   =>  api/misiniciativas   =>   recibe: token
                                 => devuelve:
 																						'id_iniciativas'  => integer
 																						'id_categoria'    => integer

@@ -588,35 +588,9 @@ class V1Controller extends Controller
         $user = JWTAuth::parseToken()->authenticate();
         $user_id = $user->id;
 
-        return response()->json(Tips::allForJson());
+        $tips = Tips::allForJson();
 
-
-        /*$categorias = Categorias::where('is_active',1)->get(['id','categoria']);
-        $subcategorias = Subcategorias::where('is_active', 1)->get(['id', 'categoria_id','subcategoria']);
-
-        $tips = Tips::where('is_active', '=', 1)         // obteniendo los tips activos
-                    ->where('id_user','=',$user->id)     // obteniendo los tips del usuario
-                    ->get([ 'tip',                       // Obteniendo las columnas que nos interesan
-                            'comentario', 
-                            'id_user',
-                            'id_categoria',
-                            'id_subcategoria']);
-
-        $valoraciones = DB::table('tips_votaciones')
-                        ->select(DB::raw('avg(calificacion) as calificacion, tip_id'))
-                        ->orderBy('calificacion', 'DESC')
-                        ->groupBy('tip_id')
-                        ->get();
-        
-
-        //retornamos los valores obtenidos
-        return response()->json([
-            'error'           => false, 
-            'tips'            => $tips, 
-            'categorias'      => $categorias,
-            'subcategorias'   => $subcategorias,
-            'votaciones_tips' => $valoraciones
-            ], 200);*/
+        return response()->json(['error'=> false, 'data' => $tips], 200);
     }
 
 
@@ -766,55 +740,10 @@ class V1Controller extends Controller
 
 
 
-        return response()->json([$iniciativas]);
+        return response()->json(['error'=> false, 'data' => $iniciativas], 200);
 
-        /*foreach ($iniciativas as $key => $value) {
-                $inicia = Iniciativa::find($value->id)->first(['id','titulo']);
-                $subsubcategorias[$value->id] = IniciativasDetalles::where('id_iniciativas', '=', $value->id)->get(['id_iniciativas', 'id_categoria', 'id_subcategoria', 'propuesta', 'orden_propuesta', 'evidencia_video', 'evidencia_foto', 'evidencia_texto']);
+       
 
-
-
-                $subsubcategorias[$value->id]->prepend($inicia->titulo, 'iniciativa');
-                $subsubcategorias[$value->id]->prepend($inicia->id, 'id_iniciativa');
-                
-                $voto = Votaciones::where('id_iniciativa', $value->id)->get(['calificacion']);
-                $calificacion = $voto->avg();
-                if (is_null($calificacion)) {
-                    $calificacion=0;
-                }
-                $subsubcategorias[$value->id]->prepend($calificacion, 'voto');
-                
-        } 
-        dd($e); */
-
-        //obteniendo el user del token
-        /*$user = JWTAuth::parseToken();
-        $user = JWTAuth::parseToken()->authenticate();
-
-        $iniciativas = Iniciativa::get(['id','titulo']);
-        $iniciativasdetalles = IniciativasDetalles::where('is_active', '=', 1)
-                                ->where('id_user',$user->id)
-                                ->get([
-                                        'id_iniciativas',
-                                        'id_categoria',
-                                        'id_subcategoria',
-                                        'propuesta',
-                                        'orden_propuesta',
-                                        'evidencia_video',
-                                        'evidencia_foto',
-                                        'evidencia_texto'
-                                      ]);
-
-        $valoraciones = DB::table('votaciones')
-                     ->select(DB::raw('avg(calificacion) as calificacion, id_iniciativa'))
-                     ->orderBy('calificacion', 'DESC')
-                     ->groupBy('id_iniciativa')
-                     ->get();
-
-
-
-
-        return response()->json(['error'=> false, 'iniciativasdetalles'=>$iniciativasdetalles, 'iniciativas' => $iniciativas, 'votaciones'=>$valoraciones], 200);*/
     }
 
 
