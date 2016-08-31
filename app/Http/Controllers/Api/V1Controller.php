@@ -512,9 +512,9 @@ class V1Controller extends Controller
 
         $iniciativas = Iniciativa::where('is_active', '=', 1)->get(['id', 'titulo']);
         $valoraciones = DB::table('votaciones')
-                     ->select(DB::raw('avg(calificacion) as calificacion, id_iniciativa'))
+                     ->select(DB::raw('avg(calificacion) as calificacion, iniciativa_id'))
                      ->orderBy('calificacion', 'DESC')
-                     ->groupBy('id_iniciativa')
+                     ->groupBy('iniciativa_id')
                      ->get();
 
         return response()->json(['error'=> false, 'iniciativas'=>$iniciativas, 'votaciones' => $valoraciones], 200);
