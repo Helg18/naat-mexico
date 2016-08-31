@@ -517,7 +517,7 @@ class V1Controller extends Controller
                      ->groupBy('iniciativa_id')
                      ->get();
 
-        return response()->json(['error'=> false, 'iniciativas'=>$iniciativas, 'votaciones' => $valoraciones], 200);
+        return response()->json(['error'=> false, 'iniciativas'=>Iniciativa::allForJsondetallando()], 200);
     }
 
     /**
