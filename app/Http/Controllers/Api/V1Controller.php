@@ -770,7 +770,7 @@ class V1Controller extends Controller
         $respuestas->respuesta=$request->respuesta;
         $respuestas->preguntas_id=$request->preguntas_id;
         $respuestas->user_id=$user->id;
-        $respuestas->quien_pregunto=$p->user_id;
+        $respuestas->quien_pregunto=$user->id;
         $respuestas->save();
         
         return response()->json(['error'=> false, 'mensaje' => 'Respuesta guardada con exito'], 200);
