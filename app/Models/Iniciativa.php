@@ -28,7 +28,6 @@ class Iniciativa extends Model
 
 
 public static function pasosiniciativas($iniciativa_id){
-
 	return Pasosiniciativas::where('iniciativa_id', $iniciativa_id)->get(['pasosiniciativas']);
 }
 

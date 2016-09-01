@@ -544,7 +544,7 @@ class V1Controller extends Controller
         foreach ($pasos as $paso ) {
             $pasoini= new Pasosiniciativas();
             $pasoini->pasosiniciativas=$paso;
-            $pasoini->pasosiniciativas=$iniciativas->id;
+            $pasoini->iniciativa_id=$iniciativas->id;
             $pasoini->save();
 
             //guardo la nueva relacion de iniciativas_detalles
@@ -558,7 +558,6 @@ class V1Controller extends Controller
             $iniciativasdetalles->evidencia_video  = $request->evidencia_video;
             $iniciativasdetalles->evidencia_foto   = $request->evidencia_foto;
             $iniciativasdetalles->evidencia_texto  = $request->evidencia_texto;
-            $iniciativasdetalles->pasosiniciativas = $pasoini->id;
             $iniciativasdetalles->is_active = 1;
             $iniciativasdetalles->save();
         
