@@ -7,6 +7,7 @@ use App\Models\Votaciones;
 use App\Models\IniciativasDetalles;
 use App\Models\Categorias;
 use App\Models\Subcategorias;
+use App\Models\Pasosiniciativas;
 use DB;
 
 class Iniciativa extends Model
@@ -25,6 +26,11 @@ class Iniciativa extends Model
 	}
 
 
+
+public static function pasosiniciativas($iniciativa_id){
+
+	return Pasosiniciativas::where('iniciativa_id', $iniciativa_id)->get(['pasosiniciativas']);
+}
 
 public static function categoria($id_categoria){
 
@@ -55,7 +61,7 @@ public static function categoria($id_categoria){
 								//'subcategoria'    => $c->subcategorias($c->subcategoria),  
 								'id_user'         => $c->id_user, 
 								'propuesta'       => $c->propuesta, 
-								'orden_propuesta' => $c->orden_propuesta, 
+								'pasos'           => Iniciativa::pasosiniciativas($c->id_iniciativas), 
 								'evidencia_video' => $c->evidencia_video, 
 								'evidencia_foto'  => $c->evidencia_foto, 
 								'evidencia_texto' => $c->evidencia_texto, 

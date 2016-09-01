@@ -26,6 +26,7 @@ use App\Models\Tips_votaciones;
 use App\Models\Iniciativas_votaciones;
 use App\Models\Preguntas;
 use App\Models\Respuestas;
+use App\Models\Pasosiniciativas;
 
 use DB;
 use JWTAuth;
@@ -531,28 +532,33 @@ class V1Controller extends Controller
 
 
         //Guardo el arreglo en una variable para su iteracion
-        $titulos = $request->titulo;
+        $pasos = $request->pasosiniciativas;
+
+        //guardo la iniciativa
+        $iniciativas = new Iniciativa();
+        $iniciativas->titulo = $request->titulo;
+        $iniciativas->is_active = 1;
+        $iniciativas->save();
 
         //Foreach para iterar el arreglo
-        foreach ($titulos as $titulo) {
-
-            //guardo la iniciativa
-            $iniciativas = new Iniciativa();
-            $iniciativas->titulo = $titulo;
-            $iniciativas->is_active = 1;
-            $iniciativas->save();
+        foreach ($pasos as $paso ) {
+            $pasoini= new Pasosiniciativas();
+            $pasoini->pasosiniciativas=$paso;
+            $pasoini->pasosiniciativas=$iniciativas->id;
+            $pasoini->save();
 
             //guardo la nueva relacion de iniciativas_detalles
             $iniciativasdetalles = new IniciativasDetalles();
-            $iniciativasdetalles->id_iniciativas  = $iniciativas->id;
-            $iniciativasdetalles->id_categoria    = $request->categoria_id;
-            $iniciativasdetalles->id_subcategoria = $request->id_subcategoria;
-            $iniciativasdetalles->id_user         = $user->id;
-            $iniciativasdetalles->propuesta       = $request->propuesta;
-            $iniciativasdetalles->orden_propuesta = $request->orden_propuesta;
-            $iniciativasdetalles->evidencia_video = $request->evidencia_video;
-            $iniciativasdetalles->evidencia_foto  = $request->evidencia_foto;
-            $iniciativasdetalles->evidencia_texto = $request->evidencia_texto;
+            $iniciativasdetalles->id_iniciativas   = $iniciativas->id;
+            $iniciativasdetalles->id_categoria     = $request->categoria_id;
+            $iniciativasdetalles->id_subcategoria  = $request->id_subcategoria;
+            $iniciativasdetalles->id_user          = $user->id;
+            $iniciativasdetalles->propuesta        = $request->propuesta;
+            $iniciativasdetalles->orden_propuesta  = "(vacio)";
+            $iniciativasdetalles->evidencia_video  = $request->evidencia_video;
+            $iniciativasdetalles->evidencia_foto   = $request->evidencia_foto;
+            $iniciativasdetalles->evidencia_texto  = $request->evidencia_texto;
+            $iniciativasdetalles->pasosiniciativas = $pasoini->id;
             $iniciativasdetalles->is_active = 1;
             $iniciativasdetalles->save();
         
