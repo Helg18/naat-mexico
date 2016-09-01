@@ -33,7 +33,7 @@ class Tips extends Model
 
 
 	public static function categoria($categoria){
-		return Categorias::find($categoria)->first(['categoria']);
+		return Categorias::find($categoria)->get(['categoria']);
 	}
 
 
