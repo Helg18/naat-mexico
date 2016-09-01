@@ -33,12 +33,12 @@ class Tips extends Model
 
 
 	public static function categoria($categoria){
-		return Categorias::find($categoria)->get(['categoria']);
+		return Categorias::find($categoria);
 	}
 
 
 	public static function subcategoria($subcategoria){
-		return Subcategorias::find($subcategoria)->first(['subcategoria']);
+		return Subcategorias::find($subcategoria);
 	}
 
 	public static function votos($tips_id){
