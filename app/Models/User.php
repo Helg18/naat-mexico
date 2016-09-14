@@ -50,11 +50,19 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     {
         return $this->belongsToMany('\App\Models\Quiz')->withTimestamps();
     }
+	
+	
 
     public function survey_respondent(){
         return $this->hasOne('\App\Models\UserSurveyRespondent');
     }
 
+	
+	
+	
+	
+	
+	
 
     static function allWithSecurity(){
 

@@ -10,15 +10,12 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-Route::get('/developer','HomeController@developer');
 
 Route::auth();
 
 Route::get('/','HomeController@index');
 
 Route::get('/home', 'HomeController@index');
-
-
 
 
 Route::post('angular/question/{id}/images', 'AngularController@images');
@@ -67,8 +64,6 @@ Route::group(['prefix' => 'company'], function () {
     //Route::get('quiz/{id}/status', 'QuizController@status');
 
 });
-
-
 
 
 Route::group(['prefix' => 'api', 'middleware' => ['jsonify']], function () {
@@ -240,20 +235,6 @@ Route::group(['prefix' => 'api'], function(){
         Route::get('getDetailIniciativa', [
             'as' => 'getDetailIniciativa',
             'uses' => 'Api\V1Controller@getDetailIniciativa'
-            ]);	
-			
-			 
-		 //DETALLE DE LAS INICIATIVAS INDIVIDUAL
-        Route::post('postComment', [
-            'as' => 'postComment',
-            'uses' => 'Api\V1Controller@postComment'
-            ]);	
-			
-			
-		 //DETALLE DE LAS INICIATIVAS INDIVIDUAL
-        Route::post('getSearch', [
-            'as' => 'getSearch',
-            'uses' => 'Api\V1Controller@getSearch'
             ]);	
 			
     });//fin de grupo de rutas para el middleware Auth

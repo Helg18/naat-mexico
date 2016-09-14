@@ -28,10 +28,6 @@ use App\Models\Tips_votaciones;
 use App\Models\Iniciativas_votaciones;
 use App\Models\Preguntas;
 use App\Models\Respuestas;
-use App\Models\Comments;
-use App\Models\Decalogo;
-
-
 
 use DB;
 use JWTAuth;
@@ -293,6 +289,7 @@ class V1Controller extends Controller
 			'celular' => 'required',
 			'puesto' => 'required',
 			'num_empleado' => 'required',
+			'foto' => '',
 		];
 		
 		$validation = Validator::make($request->toArray(), $rules);
@@ -305,7 +302,7 @@ class V1Controller extends Controller
 		$u = User::findOrFail($user->id);
         $u->nombre  = $request->nombre;
 		$u->apellido  = $request->apellido;
-		$u->foto  = $_uploadFile;
+		$u->foto  = $name;
         $u->fecha_ingreso_uvm  = $request->fecha_ingreso_uvm;
 		$u->celular  = $request->celular;
         $u->puesto  = $request->puesto;
@@ -313,9 +310,8 @@ class V1Controller extends Controller
 		if(isset($request->password)){
 			$u->password = bcrypt($request->password);
 		}
-		$u->save();
 
-        return response()->json(['error'=>false,'profile'=>$u]);
+        return response()->json(['error'=>false,'profile'=>$u->jsonProfile()]);
     }
 
 
@@ -554,6 +550,7 @@ class V1Controller extends Controller
      * Obtener las iniciativas
      */
     public function iniciativas(Request $request){
+//guardar_iniciativas
         $iniciativas = Iniciativa::where('is_active', '=', 1)->get(['id', 'titulo']);
         $valoraciones = DB::table('votaciones')
                      ->select(DB::raw('avg(calificacion) as calificacion, iniciativa_id'))
@@ -561,9 +558,6 @@ class V1Controller extends Controller
                      ->groupBy('iniciativa_id')
                      ->get();
 
-			 
-					 
-					 
         return response()->json(['error'=> false, 'iniciativas'=>Iniciativa::allForJsondetallando()], 200);
     }
 
@@ -619,7 +613,34 @@ class V1Controller extends Controller
 			DB::table("iniciativas_propuestas")->insert(["descripcion"=>$propuesta, "id_iniciativas"=>$iniciativas->id]);
 		}
 		
-		
+		/*
+        //Foreach para iterar el arreglo
+        foreach ($titulos as $titulo) {
+
+            //guardo la iniciativa
+            $iniciativas = new Iniciativa();
+            $iniciativas->titulo = $titulo;
+            $iniciativas->is_active = 1;
+            $iniciativas->save();
+
+            //guardo la nueva relacion de iniciativas_detalles
+            $iniciativasdetalles = new IniciativasDetalles();
+            $iniciativasdetalles->id_iniciativas  = $iniciativas->id;
+            $iniciativasdetalles->id_categoria    = $request->categoria_id;
+            $iniciativasdetalles->id_subcategoria = $request->id_subcategoria;
+            $iniciativasdetalles->id_user         = $user->id;
+            $iniciativasdetalles->propuesta       = $request->propuesta;
+            $iniciativasdetalles->orden_propuesta = $request->orden_propuesta;
+            $iniciativasdetalles->evidencia_video = $request->evidencia_video;
+            $iniciativasdetalles->evidencia_foto  = $request->evidencia_foto;
+            $iniciativasdetalles->evidencia_texto = $request->evidencia_texto;
+            $iniciativasdetalles->is_active = 1;
+            $iniciativasdetalles->save();
+        
+        }//end foreach o iteracion del array
+		*/
+
+        //respondiendo por el API
         return response()->json(['error'=> false, 'mensaje'=>'Iniciativas guardadas con exito'], 200);
     }
 
@@ -639,7 +660,7 @@ class V1Controller extends Controller
 
 
     /**
-     * Listar tips _> MIS TIPS
+     * Listar tips
      */
     public function tips(Request $request){
 
@@ -668,8 +689,9 @@ class V1Controller extends Controller
 		$rules =  [
 			'titulo' => 'required',
 			'comentario' => 'required',
-			'id_categoria' => 'required|numeric|min:1',
-			'id_subcategoria' => 'required|numeric|min:1',
+			'id' => 'required',
+			'id_categoria' => 'required',
+			'id_subcategoria' => 'required',
 		];
 		
 		$validation = Validator::make($request->toArray(), $rules);
@@ -705,15 +727,6 @@ class V1Controller extends Controller
         $user = JWTAuth::parseToken();
         $user = JWTAuth::parseToken()->authenticate();
 
-		
-		$rules = Votaciones::where('id_iniciativa', '=', $request->id_iniciativa)
-					->where('id_user', '=', $user->id)
-					->first();
-		if($rules !== null){
-			  return response()->json(['error'=> true, 'mensaje'=>'Ya haz votado por esta iniciativa'], 401);
-		}
-		
-		
         //creando un objeto vacio
         $votaciones = new Votaciones();
 
@@ -775,8 +788,7 @@ class V1Controller extends Controller
         $subcategorias = Subcategorias::where('is_active', 1)->get(['id', 'categoria_id','subcategoria']);
 
         $tips = Tips::where('is_active', '=', 1)         // obteniendo los tips activos
-                    ->get([ 'id',
-							'tip',                       // Obteniendo las columnas que nos interesan
+                    ->get([ 'tip',                       // Obteniendo las columnas que nos interesan
                             'comentario', 
                             'id_user',
                             'id_categoria',
@@ -788,28 +800,6 @@ class V1Controller extends Controller
                         ->groupBy('tip_id')
                         ->get();
         
-		
-		foreach($tips as $key => $value){
-			$array["name"] = $value->users->name;
-			$array["campus"] = $value->users->campus;
-			$array["foto"] = $value->users->foto;
-			
-		
-			$votos = Tips::votos($value->id);
-			$categoria = Tips::categoria($value->id_categoria);
-			$subcategoria = Tips::subcategoria($value->id_subcategoria);
-		
-			$value = $value->toArray();
-			
-			$value["votaciones"] = $votos;
-			$value["categoria"] = $categoria;
-			$value["subcategoria"] = $subcategoria;
-			$value["users"] = $array;
-			
-			$tips[$key] = $value;
-			
-		}
-		
 
         //retornamos los valores obtenidos
         return response()->json([
@@ -833,7 +823,7 @@ class V1Controller extends Controller
 
         $iniciativas = Iniciativa::allForJson($user->id);
 
-	
+
 
         return response()->json(['error'=> false, 'data' => $iniciativas], 200);
 
@@ -910,15 +900,6 @@ class V1Controller extends Controller
         $user = JWTAuth::parseToken();
         $user = JWTAuth::parseToken()->authenticate();
 
-		
-		$rules = Tips_votaciones::where('tip_id', '=', $request->tip_id)
-					->where('id_user', '=', $user->id)
-					->first();
-		if($rules !== null){
-			  return response()->json(['error'=> true, 'mensaje'=>'Ya haz votado por este tip'], 401);
-		}
-		
-		
         //creando un objeto vacio
         $votaciones = new Tips_votaciones();
 
@@ -943,12 +924,6 @@ class V1Controller extends Controller
         $user = JWTAuth::parseToken();
         $user = JWTAuth::parseToken()->authenticate();
 
-		$rules = Iniciativas_votaciones::where('iniciativas_id', '=', $request->iniciativas_id)
-					->where('id_user', '=', $user->id)
-					->first();
-		if($rules !== null){
-			  return response()->json(['error'=> true, 'mensaje'=>'Ya haz votado por esta inicativa'], 401);
-		}
         //creando un objeto vacio
         $votaciones = new Iniciativas_votaciones();
 
@@ -1002,74 +977,9 @@ class V1Controller extends Controller
         if ($validation->fails()) {
 			return response()->json(['error'=>true,'message'=>$validation->messages()], 200);
 		}
-		
-		$data = Iniciativa::findOrFail($request->id);
-		$indicadores = Iniciativa::indicadores($request->id);
-		$data->offsetSet('indicadores', Indicadores::whereIn('id', $indicadores)->get(['id', 'titulo']) );
-		$data->offsetSet('propuestas', Iniciativa::propuestas($request->id) );
-		
-		foreach($data->comments as $key => $value){
-			$data->comments[$key]->offsetSet('name', $value->users->name );
-			unset($data->comments[$key]->users);
-		}
-		$data->offsetSet('comments', $data->comments );
-		
-		return response()->json(['error'=> false, 'mensaje'=>"Detalle de iniciativa", 'data'=>	$data], 200);
+		return response()->json(['error'=> false, 'mensaje'=>"Detalle de iniciativa", 'data'=>	Iniciativa::findOrFail($request->id)], 200);
 	
 	}
-	 
-	
-	public function postComment(Request $request){
-		//obteniendo el user del token
-        $user = JWTAuth::parseToken();
-        $user = JWTAuth::parseToken()->authenticate();
-		
-		$rules =  [
-			'id_iniciativa' => 'required',
-			'comentario' => 'required',
-		];
-		
-		$validation = Validator::make($request->toArray(), $rules);
-        if ($validation->fails()) {
-			return response()->json(['error'=>true,'message'=>$validation->messages()], 200);
-		}
-		
-		
-		$data = new Comments();
-		$data->comentario = $request->comentario;
-		$data->id_iniciativa = $request->id_iniciativa;
-		$data->id_user = $user->id;
-		$data->save();
-		
-		$data = Comments::where('id_iniciativa', '=', $request->id_iniciativa)->get();
-		foreach($data as $key => $value){
-			$value->name = $value->users->name;//$value->users->name;
-		}
-		
-		$data = $data->toArray();
-		foreach($data as $key => $value){
-			unset($data[$key]['users']);
-		}
-		
-		return response()->json(['error'=> false, 'mensaje'=>"Comentarios iniciativa", 'data'=>$data], 200);
-
-	}
-	
-	
-	
-	
-	public function getSearch(Request $request){
-		
-		$user = JWTAuth::parseToken();
-        $user = JWTAuth::parseToken()->authenticate();
-		
-		$data = Iniciativa::allForJsonSearch($request->search);
-		return response()->json(['error'=> false, 'mensaje'=>"Resultado de busquedaa", 'data'=>$data], 200);
-	}
-	
-	
-	
-	
 	
 	
 	
