@@ -121,6 +121,7 @@
 						</a>
 					</li>
 
+					@if (Auth::user()->id == 1)
 					<li class="menu-dashboard">
 						<a href="{{url('admin/usuarios')}}">
 							<i class="ion ion-person"></i>
@@ -132,6 +133,42 @@
 						<a href="{{url('admin/reglas')}}">
 							<i class="ion ion-ios-pricetag"></i>
 							<span class="text">Reglas</span>
+						</a>
+					</li>
+
+					<li class="menu-dashboard">
+						<a href="{{url('admin/fechas')}}">
+							<i class="ion ion-calendar"></i>
+							<span class="text">Fechas</span>
+						</a>
+					</li>
+
+					<li class="menu-dashboard">
+						<a href="{{url('admin/premios')}}">
+							<i class="ion ion-trophy"></i>
+							<span class="text">Premios</span>
+						</a>
+					</li>
+
+					<li class="menu-dashboard">
+						<a href="{{url('admin/categorias')}}">
+							<i class="ion ion-ios-browsers"></i>
+							<span class="text">Categorias</span>
+						</a>
+					</li>
+					@endif
+
+					<li class="menu-dashboard">
+						<a href="{{url('admin/iniciativas')}}">
+							<i class="ion ion-ios-browsers"></i>
+							<span class="text">Iniciativas</span>
+						</a>
+					</li>
+
+					<li class="menu-dashboard">
+						<a href="{{url('admin/decalogos')}}">
+							<i class="ion ion-speakerphone"></i>
+							<span class="text">Decalogos</span>
 						</a>
 					</li>
 	

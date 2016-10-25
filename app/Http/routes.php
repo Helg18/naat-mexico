@@ -10,12 +10,15 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::get('/developer','HomeController@developer');
 
 Route::auth();
 
 Route::get('/','HomeController@index');
 
 Route::get('/home', 'HomeController@index');
+
+
 
 
 Route::post('angular/question/{id}/images', 'AngularController@images');
@@ -66,6 +69,8 @@ Route::group(['prefix' => 'company'], function () {
 });
 
 
+
+
 Route::group(['prefix' => 'api', 'middleware' => ['jsonify']], function () {
 
     Route::delete('v1/{id}/quiz', 'Api\V1Controller@quiz_delete');
@@ -92,14 +97,175 @@ Route::group(['prefix' => 'api'], function(){
         'uses' => 'Api\V1Controller@register'
         ]);
 
-    //Obtener las reglas del juego
-    Route::POST('reglasdeljuego', [
-        'as' => 'API_reglasdeljeugo',
-        'uses' => 'Api\V1Controller@reglasdeljuego'
+    //Recuperar contraseña
+    Route::post('postRecoverPassword', [
+        'as' => 'postRecoverPassword',
+        'uses' => 'Api\V1Controller@postRecoverPassword'
         ]);
+
+	 Route::get('getProfile', [
+        'as' => 'getProfile',
+        'uses' => 'Api\V1Controller@getProfile'
+        ]);
+		
+	Route::POST('postProfile', [
+        'as' => 'postProfile',
+        'uses' => 'Api\V1Controller@postProfile'
+        ]);
+
+    Route::group(['middleware' => 'jwt-auth'], function(){
+	
+		//Obtener las reglas del juego
+        Route::POST('postUpdateMetas', [
+            'as' => 'postUpdateMetas',
+            'uses' => 'Api\V1Controller@postUpdateMetas'
+         ]);
+	
+        //Obtener las reglas del juego
+        Route::POST('reglasdeljuego', [
+            'as' => 'API_reglasdeljuego',
+            'uses' => 'Api\V1Controller@reglasdeljuego'
+            ]);
+
+        //Obtener las fechas
+        Route::POST('fechas', [
+            'as' => 'API_fechas',
+            'uses' => 'Api\V1Controller@fechas'
+            ]);
+
+        //Obtener los premios
+        Route::POST('premios', [
+            'as' => 'API_premios',
+            'uses' => 'Api\V1Controller@premios'
+            ]);
+
+        //Obtener las categorias y subcategorias
+        Route::POST('categorias', [
+            'as' => 'API_categorias',
+            'uses' => 'Api\V1Controller@categorias'
+            ]);
+        
+        //Obtener las iniciativas
+        Route::POST('iniciativas', [
+            'as' => 'API_iniciativas',
+            'uses' => 'Api\V1Controller@iniciativas'
+            ]);        
+        
+        //Guardar_iniciativas
+        Route::POST('guardar_iniciativas', [
+            'as' => 'API_guardar_iniciativas',
+            'uses' => 'Api\V1Controller@guardar_iniciativas'
+            ]);        
+        
+        //Listar decalogos
+        Route::POST('decalogos', [
+            'as' => 'API_decalogos',
+            'uses' => 'Api\V1Controller@decalogos'
+            ]);
+
+        //listar tips
+        Route::POST('tips', [
+            'as' => 'API_tips',
+            'uses' => 'Api\V1Controller@tips'
+            ]);
+
+        //listar tips
+        Route::POST('guardar_tips', [
+            'as' => 'API_guardar_tips',
+            'uses' => 'Api\V1Controller@guardar_tips'
+            ]);
+
+        //Guardar votaciones
+        Route::POST('guardar_votaciones', [
+            'as' => 'API_guardar_votaciones',
+            'uses' => 'Api\V1Controller@guardar_votaciones'
+            ]);
+
+        //Mostrar votaciones
+        Route::POST('listar_votaciones', [
+            'as' => 'API_listar_votaciones',
+            'uses' => 'Api\V1Controller@listar_votaciones'
+            ]);
+
+        //TOP TEN
+        Route::POST('top_ten', [
+            'as' => 'API_top_ten',
+            'uses' => 'Api\V1Controller@top_ten'
+            ]);
+
+        //listar_tips
+        Route::POST('listar_tips', [
+            'as' => 'API_listar_tips',
+            'uses' => 'Api\V1Controller@listar_tips'
+            ]);
+
+        //misiniciativas
+        Route::POST('misiniciativas', [
+            'as' => 'API_misiniciativas',
+            'uses' => 'Api\V1Controller@misiniciativas'
+            ]);
+
+        //guardar_preguntas
+        Route::POST('guardar_pregunta', [
+            'as' => 'API_guardar_pregunta',
+            'uses' => 'Api\V1Controller@guardar_pregunta'
+            ]);
+
+        //guardar_respuesta
+        Route::POST('guardar_respuesta', [
+            'as' => 'API_guardar_respuesta',
+            'uses' => 'Api\V1Controller@guardar_respuesta'
+            ]);
+
+        //listar preguntas y respuestas
+        Route::POST('preguntas_respuestas', [
+            'as' => 'API_preguntas_respuestas',
+            'uses' => 'Api\V1Controller@preguntas_respuestas'
+            ]);
+        
+        //guardar_votaciones_tips
+        Route::POST('guardar_votaciones_tips', [
+            'as' => 'API_guardar_votaciones_tips',
+            'uses' => 'Api\V1Controller@guardar_votaciones_tips'
+            ]);
+
+        //guardar_votaciones_iniciativas
+        Route::POST('guardar_votaciones_iniciativas', [
+            'as' => 'API_guardar_votaciones_iniciativas',
+            'uses' => 'Api\V1Controller@guardar_votaciones_iniciativas'
+            ]);
+
+		
+		 //DETALLE DE LAS INICIATIVAS INDIVIDUAL
+        Route::get('getDetailIniciativa', [
+            'as' => 'getDetailIniciativa',
+            'uses' => 'Api\V1Controller@getDetailIniciativa'
+            ]);	
+			
+			 
+		 //DETALLE DE LAS INICIATIVAS INDIVIDUAL
+        Route::post('postComment', [
+            'as' => 'postComment',
+            'uses' => 'Api\V1Controller@postComment'
+            ]);	
+			
+			
+		 //DETALLE DE LAS INICIATIVAS INDIVIDUAL
+        Route::post('getSearch', [
+            'as' => 'getSearch',
+            'uses' => 'Api\V1Controller@getSearch'
+            ]);	
+			
+    });//fin de grupo de rutas para el middleware Auth
 
 });
 
+
+//route para descargar docapi.ll
+Route::get('docapi', function(){
+    $docapi = "../docaip.ll";
+    return response()->download($docapi);
+});
 
 /**
  * Fin de rutas para login a traves de API
@@ -112,4 +278,27 @@ Route::group(['prefix' => 'admin', 'middleware'=> 'auth'], function(){
     
     //rutas de Reglasdeljuego
     Route::resource('reglas', 'ReglasdeljuegoController');
+
+    //rutas para las fechas
+    Route::resource('fechas', 'FechasController');
+
+    //rutas para los premios
+    Route::resource('premios', 'PremiosController');
+
+    //Rutas para las categorias
+    Route::resource('categorias','CategoriasController');
+    
+    //Rutas para las subcategorias
+    Route::resource('subcategoria','SubcategoriasController');
+    Route::get('subcategoria/creates/{id}', [
+        'as'=>'admin.subcategorias.create',
+        'uses'=>'SubcategoriasController@create'
+        ]);
+
+    //Rutas para las iniciativas
+    Route::resource('iniciativas','IniciativaController');
+
+    //Rutas para los Decalogos
+    Route::resource('decalogos','DecalogoController');
+
 });

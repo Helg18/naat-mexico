@@ -10,6 +10,15 @@
 		<li class="active"><a href="{{ route('admin.usuarios.create') }}" hreff="#tab-linearrow-one" -data-toggle="tab">Agregar</a></li>
 	</ul>
 	<div class="tab-content" style="text-align: center;">
+	@if (count($errors) > 0)
+    <div class="alert alert-danger" style="text-align: left;">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+	@endif
 	{!! Form::open(['route' => 'admin.usuarios.store', 'method'=>'post']) !!}
 	<table>
 		<tr>
@@ -42,8 +51,12 @@
 			<td>{!! Form::text('celular', '', ['class' => 'form-control']) !!}</td>
 		</tr>
 		<tr>
-			<td>{!! Form::label('fecha_ingreso', 'Fecha de ingreso') !!}</td>
-			<td>{!! Form::date('fecha_ingreso', '', ['class' => 'form-control']) !!}</td>
+			<td>{!! Form::label('fecha_ingreso_uvm', 'Fecha de ingreso') !!}</td>
+			<td>{!! Form::date('fecha_ingreso_uvm', '', ['class' => 'form-control']) !!}</td>
+		</tr>
+		<tr>
+			<td>{!! Form::label('num_empleado', 'Numero de Empleado') !!}</td>
+			<td>{!! Form::text('num_empleado', '', ['class' => 'form-control']) !!}</td>
 		</tr>
 		<tr>
 			<td>{!! Form::label('puesto', 'Puesto') !!}</td>

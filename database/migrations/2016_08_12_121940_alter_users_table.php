@@ -45,6 +45,7 @@ public function down()
 			$table->dropColumn('num_empleado');
 			$table->dropColumn('metas_ni');
 			$table->dropColumn('metas_pno');
+			$table->dropColumn('id_rol');
 		});
 	}
 }

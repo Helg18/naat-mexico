@@ -10,6 +10,15 @@
 		<li class="active"><a href="#" hreff="#tab-linearrow-one" -data-toggle="tab">Editar</a></li>
 	</ul>
 	<div class="tab-content" style="text-align: center;">	
+		@if (count($errors) > 0)
+	    <div class="alert alert-danger" style="text-align: left;">
+	      <ul>
+	        @foreach ($errors->all() as $error)
+	          <li>{{ $error }}</li>
+	        @endforeach
+	      </ul>
+	    </div>
+		@endif
 	<div class="row">
 		{!! Form::open(['route' => ['admin.reglas.update', $regla->id], 'method'=>'put']) !!}
 		<table>

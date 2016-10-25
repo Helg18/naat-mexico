@@ -30,7 +30,6 @@ class UsersTableSeeder extends Seeder
         $admin->email = 'luis@kreativeco.com';
         $admin->password = bcrypt('1234567890');
         $admin->is_active= true;
-        $admin->id_rol= 1;
         $admin->save();
 
         $admin->assignRole($role_admin->id);
@@ -42,7 +41,6 @@ class UsersTableSeeder extends Seeder
         $executive->email = 'helg18@gmail.com';
         $executive->password = bcrypt('1234567890');
         $executive->is_active= true;
-        $executive->id_rol= 1;
         $executive->save();
 
         $executive->assignRole($role_executive->id);

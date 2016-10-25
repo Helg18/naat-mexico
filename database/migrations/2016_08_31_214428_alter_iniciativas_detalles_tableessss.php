@@ -13,7 +13,7 @@ class AlterIniciativasDetallesTableessss extends Migration
     public function up()
     {
         Schema::table('iniciativas_detalles', function (Blueprint $table) {
-            $table->integer('pasosiniciativas_id')->unsigned();
+           // $table->integer('pasosiniciativas_id')->unsigned();
 
         });
     }
@@ -26,7 +26,7 @@ class AlterIniciativasDetallesTableessss extends Migration
     public function down()
     {
         Schema::table('iniciativas_detalles', function (Blueprint $table) {
-            $table->dropColumn('pasosiniciativas_id');
+            //$table->dropColumn('pasosiniciativas_id');
         });
     }
 }
