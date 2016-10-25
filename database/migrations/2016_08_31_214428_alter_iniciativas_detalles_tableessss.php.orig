@@ -1,0 +1,40 @@
+<?php
+
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Database\Migrations\Migration;
+
+class AlterIniciativasDetallesTableessss extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('iniciativas_detalles', function (Blueprint $table) {
+<<<<<<< HEAD
+            $table->integer('pasosiniciativas_id')->unsigned();
+=======
+           // $table->integer('pasosiniciativas_id')->unsigned();
+>>>>>>> c9f12cfa514f5d4862e83f50259b818ceff3ec55
+
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('iniciativas_detalles', function (Blueprint $table) {
+<<<<<<< HEAD
+            $table->dropColumn('pasosiniciativas_id');
+=======
+            //$table->dropColumn('pasosiniciativas_id');
+>>>>>>> c9f12cfa514f5d4862e83f50259b818ceff3ec55
+        });
+    }
+}
